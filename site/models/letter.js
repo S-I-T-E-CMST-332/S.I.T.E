@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
+let session = require('session');
+let Schema = mongoose.Schema;
 
-var Schema = mongoose.Schema;
-
-var LetterSchema = new Schema(
+let LetterSchema = new Schema(
     {
         letter_id: {type: Number, required: true},
         session_id: {type: Number, required: true}

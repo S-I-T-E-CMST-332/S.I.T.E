@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
+let form = require('./form');
+let Schema = mongoose.Schema;
 
-var Schema = mongoose.Schema;
 
-var FlashcardSchema = new Schema(
+let FlashcardSchema = new Schema(
     {
         flashcard_id: {type: Number, required: true},
         form_id: {type: Number, required: true}
