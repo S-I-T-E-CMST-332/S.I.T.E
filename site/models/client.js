@@ -9,4 +9,6 @@ let ClientSchema = new Schema({
     dob: {type: String, required: true},
     fname: {type: String, required: true},
     lname: {type: String, required: true}
-})
+});
+
+module.exports = mongoose.model('client', ClientSchema);

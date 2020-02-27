@@ -11,3 +11,5 @@ let ClinicianSchema = new Schema({
     phone: {type: String, required: true},
     email: {type: String, required: true}
 });
+
+module.exports = mongoose.model('clinician', ClinicianSchema);
