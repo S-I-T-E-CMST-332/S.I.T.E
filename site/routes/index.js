@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 //POST home page
-router.post('/', clinician.login);
+router.post('/', clinician.login); //Admin or supervisor??
 // GET client list
 router.get('/clients', clinician.get_clients);
 //GET Add client
