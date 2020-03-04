@@ -12,3 +12,16 @@ exports.has_auth = function(req, res, next){
         }
       ));
 }
+
+exports.login = function(req, res, next) { 
+	passport.authenticate('local', {
+		successRedirect: "/clinicians",
+		failureRedirect: "/"
+	})(req, res, next);
+}
+
+exports.logout = function(req, res, next) { 
+	req.logout();
+	req.session.destroy();
+	res.redirect('/');
+}
