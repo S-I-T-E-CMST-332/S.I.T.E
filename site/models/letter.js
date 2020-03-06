@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-let session = require('session');
+
 let Schema = mongoose.Schema;
 
 let LetterSchema = new Schema(

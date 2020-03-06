@@ -1,6 +1,4 @@
 let mongoose = require("mongoose");
-let clinician = require("./clinician");
-let supervisor = require("./supervisor");
 
 let Schema = mongoose.Schema;
 

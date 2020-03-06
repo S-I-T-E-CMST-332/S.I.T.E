@@ -1,5 +1,4 @@
 let mongoose = require("mongoose");
-let users = require("./users");
 
 let Schema = mongoose.Schema;
 
