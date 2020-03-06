@@ -54,9 +54,13 @@ exports.create_user[
 ]
 
 exports.login = function(req, res, next) { 
-	  passport.authenticate('local', {
-      successRedirect: "/clinicians",
-      failureRedirect: "/"
+    body('username').isLength({min: 1}).trim().withMessage('Please enter your username').isAlphaNumeric().withMessage('Must be alphanumeric');
+    body('password').isLength({min: 1}).trim().withMessage('Please enter your password');
+    sanitize('username').escape(),
+    sanitize('password').escape(),
+    passport.authenticate('local', {
+        successRedirect: "/clinicians",
+        failureRedirect: "/"
     })(req, res, next);
 }
 
