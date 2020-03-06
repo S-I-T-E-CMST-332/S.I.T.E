@@ -1,6 +1,9 @@
 let passport = require('passport');
 let account = require('../models/users'); //Called this account because passport uses the term user
 const sanitize = require('express-validator');
+let bcrypt = require('bcrypt');
+let uniqid = require('uniqid');//This and bcrypt did NOT show up on their own in the package json. Best of luck
+
 exports.has_auth = function(req, res, next){
     passport.use(new LocalStrategy(
         function(username, password, done) {
@@ -36,9 +39,10 @@ exports.create_user[
       }else{
         let newUser = new account(
           {
-            //Supervisor id and user id?
+            user_id: uniqid(),
+            supervisor_id: uniqid(),
             username: req.body.username,
-            password: req.body.password, //We need to encrypt this, bcrypt is being an asshole and wont install
+            password: generatehash(req.body.password),
             fname: req.body.fname,
             lname: req.body.lname,
             phone: req.body.phone,
