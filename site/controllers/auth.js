@@ -1,5 +1,6 @@
 let passport = require('passport');
-
+let account = require('../models/users'); //Called this account because passport uses the term user
+const sanitize = require('express-validator');
 exports.has_auth = function(req, res, next){
     passport.use(new LocalStrategy(
         function(username, password, done) {
@@ -13,15 +14,54 @@ exports.has_auth = function(req, res, next){
       ));
 }
 
+exports.create_user[
+    body('username').isLength({min: 1}).trim().withMessage('Please enter your username').isAlphaNumeric().withMessage('Must be alphanumeric'),
+    body('password').isLength({min: 1}).trim().withMessage('Please enter your password'),
+    body('fname').isLength({min: 1}).trim().withMessage('Please enter your first name').isAlphaNumeric().withMessage('Must be alphanumeric'),
+    body('lname').isLength({min: 1}).trim().withMessage('Please enter your last name').isAlphaNumeric().withMessage('Must be alphanumeric'),
+    body('phone').isLength({min: 12, max: 12}).trim().withMessage('Please enter your phone number (eg. 555-123-4567)'),
+    body('email').isLength({min: 1}).trim().withMessage('Please enter your email (eg. example@domain.com)'),
+    //sanitize
+    sanitize('username').escape(),
+    sanitize('password').escape(),
+    sanitize('fname').escape(),
+    sanitize('lname').escape(),
+    sanitize('phone').escape(),
+    sanitize('email').escape(),
+    (req, res, next) =>{
+      const errors = validationResult(req);
+      if (!errors.isEmpty()){
+        //we have to rerender the create page, as there were errors
+        return;
+      }else{
+        let newUser = new account(
+          {
+            //Supervisor id and user id?
+            username: req.body.username,
+            password: req.body.password, //We need to encrypt this, bcrypt is being an asshole and wont install
+            fname: req.body.fname,
+            lname: req.body.lname,
+            phone: req.body.phone,
+            email: req.body.email,
+            flag: req.body.flag //Checkbox for supervisor or not
+          });
+        newUser.save(function (err){
+          if (err){return next(err); }
+          res.redirect('To be determined');
+        })
+      }
+    }
+]
+
 exports.login = function(req, res, next) { 
-	passport.authenticate('local', {
-		successRedirect: "/clinicians",
-		failureRedirect: "/"
-	})(req, res, next);
+	  passport.authenticate('local', {
+      successRedirect: "/clinicians",
+      failureRedirect: "/"
+    })(req, res, next);
 }
 
 exports.logout = function(req, res, next) { 
-	req.logout();
-	req.session.destroy();
-	res.redirect('/');
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
 }
