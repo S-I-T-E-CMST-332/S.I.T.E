@@ -31,7 +31,7 @@ exports.create_user[
         let newUser = new account(
           {
             user_id: uniqid(),
-            supervisor_id: uniqid(),
+            supervisor_id: req.body.flag ? uniqid() : supervisor_id,//This ideally checks if the person being created is a supervisor. If they aren't, they should inherit the supervisor_id. Otherwise, it creates a supervisor id for them.
             username: req.body.username,
             password: generatehash(req.body.password),
             fname: req.body.fname,

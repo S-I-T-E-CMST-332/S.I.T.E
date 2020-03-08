@@ -1,4 +1,4 @@
-//Model stuff
+let Client = require('../models/client');
 
 //New modules (like validators)
 
@@ -57,3 +57,24 @@ exports.get_progress_overview = function(req, res, next){
 exports.get_progress_sessions = function(req, res, next){
     res.render('clients/client\ profile/progress/progress\ overview/sessions/sessions');
 }
+
+exports.create_client[
+    body('dob').isLength({min:1}).trim().withMessage("Please enter your dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
+    body('fname').isLength({min: 1}).trim().withMessage("Please enter your client's first name").isAlphaNumeric().withMessage("No special characthers"),
+    body('lname').isLength({min: 1}).trim().withMessage("Please enter your client's last name").isAlphaNumeric().withMessage("No special charachters"),
+    sanitize('dob').escapee(),
+    sanitize('fname').escape(),
+    sanitize('lname').escape(),
+    (req, res, next) =>{
+        const errors = validationResult(req);
+        if (!errors.isEmpty){
+            //rerender the page
+        }else{
+            let client = new Client(
+                {
+                    
+                }
+            )
+        }
+    }
+]
