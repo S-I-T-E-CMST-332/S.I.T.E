@@ -72,9 +72,16 @@ exports.create_client[
         }else{
             let client = new Client(
                 {
-                    
+                    user_id: user_id,
+                    dob: req.body.dob,
+                    fname: req.body.fname,
+                    lname: req.body.lname
                 }
-            )
+            );
+            client.save(function (err){
+                if (err){return next(err);}
+                res.redirect('To be determined');
+            });
         }
     }
 ]

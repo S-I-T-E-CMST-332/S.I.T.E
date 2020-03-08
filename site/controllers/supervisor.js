@@ -43,7 +43,7 @@ exports.create_user[
         newUser.save(function (err){
           if (err){return next(err); }
           res.redirect('To be determined');
-        })
+        });
       }
     }
 ]
