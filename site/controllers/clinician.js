@@ -104,7 +104,11 @@ exports.edit_client[
                     fname: req.body.fname,
                     lname: req.body.lname
                 }
-            )
+            );
+            Client.findByIdAndUpdate(req.params.id, client, function(err){
+                if (err){return next(err);}
+                res.redirect("somewhere");
+            });
         }
     }
-]
+];
