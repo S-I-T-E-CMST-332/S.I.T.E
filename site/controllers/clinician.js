@@ -120,10 +120,10 @@ exports.delete_client = function(req, res, next){
         },
     }, function(err, results){
         if(err){return next(err);}
-        Client.findByIdAndDelete(req.body.clientid){
+        Client.findByIdAndDelete(req.body.clientid, function deleteclient(err){
             if(err){return next(err);}
             res.redirect('somewhere');
-        }
+        });
     }
     );
 }
