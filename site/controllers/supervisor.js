@@ -1,5 +1,6 @@
 let passport = require('passport');
 let account = require('../models/users'); //Called this account because passport uses the term user
+let Client = require('../models/client');
 const sanitize = require('express-validator');
 let bcrypt = require('bcrypt');
 let uniqid = require('uniqid');//This and bcrypt did NOT show up on their own in the package json. Best of luck
@@ -73,3 +74,24 @@ exports.edit_user[
     });
   }
 ];
+
+exports.delete_clinician = function(req, res, next){
+  async.parallel({
+    clinician: function(callback){
+      account.findById(req.body.clinician_id).exec(callback);
+    },
+    clients: function(callback){
+      Client.find({'user_id': req.body.clinician_id}).exec(callback);
+    },
+  }, function(err, results){
+    if(err){return next(err);}
+    Client.findByIdAndDelete({'user_id': req.body.clinician_id}, function deleteClient(err){
+      if(err){return next(err);}
+    }),
+    account.findByIdAndDelete(req.body.clinician_id, function deleteClinician(err){
+      if(err){return next(err);}
+      res.redirect('somewhere');
+    });
+    }
+  );
+}

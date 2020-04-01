@@ -112,3 +112,18 @@ exports.edit_client[
         }
     }
 ];
+
+exports.delete_client = function(req, res, next){
+    async.parallel({
+        client: function(callback){
+            Client.findById(req.body.client_id).exec(callback);
+        },
+    }, function(err, results){
+        if(err){return next(err);}
+        Client.findByIdAndDelete(req.body.client_id, function deleteclient(err){
+            if(err){return next(err);}
+            res.redirect('somewhere');
+        });
+    }
+    );
+}
