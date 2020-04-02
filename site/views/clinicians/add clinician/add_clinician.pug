@@ -1,1 +1,30 @@
-This takes you to the form to add a clinician
+<!--This takes you to the form to add a clinician-->
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Create Client
+
+        // register form
+        form(method='POST' action='/register')
+            div.form-group
+                label(for='username') Username:
+                input#name.form-control(type='text', placeholder='username' name='username')
+            div.form-group
+                label(for='password') Password:
+                input#name.form-control(type='password', placeholder='password' name='password')
+            div.form-group
+                label(for='name') First Name:
+                input#name.form-control(type='text', placeholder='first name' name='first name')
+            div.form-group
+                label(for='email') Last Name:
+                input#email.form-control(type='text', placeholder='last name' name='last name')
+            div.form-group
+                label(for='Phone') Phone:
+                input#favoriteBook.form-control(type='number', placeholder='phone number' name='phone number')
+            div.form-group
+                label(for='email') Email:
+                input#name.form-control(type='text', placeholder='email' name='email')
+          button.btn.btn-primary(type='submit') Create
