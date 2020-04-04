@@ -3,8 +3,8 @@ let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
-    user_id: {type: Integer, required: true},
-    supervisor_id: {type: Integer, required: false},
+    user_id: {type: Number, required: true},
+    supervisor_id: {type: Number, required: false},
     username: {type: String, required: true},
     password: {type: String, required: true},
     fname: {type: String, required: true},
