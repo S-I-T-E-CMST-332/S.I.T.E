@@ -9,6 +9,22 @@ exports.get_clinicians = function(req, res, next){
   res.render('clinicians/clinicians');
 }
 
+exports.get_add_user = function(req, res, next){
+  res.render('clinicians/add-clinician/add_clinician');
+}
+
+exports.get_clinician_profile = function(req, res, next){
+  res.render('clinicians/clinician\ profile/profile');
+}
+
+exports.get_edit_clinician = function(req, res, next){
+  res.render('clinicians/clinician\ profile/edit/edit');
+}
+
+exports.get_delete_clinician = function(req, res, next){
+  res.render('clinicians/clinician\ profile/delete/delete');
+}
+
 exports.create_user[
   body('username').isLength({min: 1}).trim().withMessage('Please enter your username').isAlphaNumeric().withMessage('Must be alphanumeric'),
   body('password').isLength({min: 1}).trim().withMessage('Please enter your password'),
@@ -43,7 +59,7 @@ exports.create_user[
         });
       newUser.save(function (err){
         if (err){return next(err); }
-        res.redirect('To be determined');
+        res.redirect('/clinicians/clinician-profile');
       });
     }
   }
@@ -70,7 +86,7 @@ exports.edit_user[
     });
     account.findByIdAndUpdate(req.params.id, newUser, function(err){
       if (err){return next(err);}
-      res.redirect('somewhere');
+      res.redirect('/clinicians/clinician-profile');
     });
   }
 ];
@@ -90,7 +106,7 @@ exports.delete_clinician = function(req, res, next){
     }),
     account.findByIdAndDelete(req.body.clinician_id, function deleteClinician(err){
       if(err){return next(err);}
-      res.redirect('somewhere');
+      res.redirect('/clinicians/clinician-profile');
     });
     }
   );
