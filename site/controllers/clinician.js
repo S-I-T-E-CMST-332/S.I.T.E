@@ -13,10 +13,6 @@ exports.get_add_client = function(req, res, next){
     res.render('clients/add\ client/add');
 }
 
-exports.post_add_client = function(req, res, next){
-    res.redirect('/clients');
-}
-
 exports.get_profile = function(req, res, next){
     res.render('clients/client\ profile/profile');
 }
@@ -25,16 +21,8 @@ exports.get_edit = function(req, res, next){
     res.render('clients/client\ profile/edit/edit');
 }
 
-exports.post_edit = function(req, res, next){
-    res.redirect('clients/client\ profile');
-}
-
 exports.get_delete = function(req, res, next){
     res.render('clients/client\ profile/delete/delete');
-}
-
-exports.post_delete = function(req, res, next){
-    res.redirect('clients/client\ profile');
 }
 
 exports.get_session = function(req, res, next){
@@ -79,7 +67,7 @@ exports.create_client[
             );
             client.save(function (err){
                 if (err){return next(err);}
-                res.redirect('To be determined');
+                res.redirect('/clients');
             });
         }
     }
@@ -107,7 +95,7 @@ exports.edit_client[
             );
             Client.findByIdAndUpdate(req.params.id, client, function(err){
                 if (err){return next(err);}
-                res.redirect("somewhere");
+                res.redirect("/clients");
             });
         }
     }
@@ -122,7 +110,7 @@ exports.delete_client = function(req, res, next){
         if(err){return next(err);}
         Client.findByIdAndDelete(req.body.client_id, function deleteclient(err){
             if(err){return next(err);}
-            res.redirect('somewhere');
+            res.redirect('/clients');
         });
     }
     );

@@ -13,12 +13,18 @@ router.post('/', clinician.login); //Admin or supervisor??
 router.get('/clients', clinician.get_clients);
 //GET Add client
 router.get('/clients/add-client', clinician.get_add_client);
-// GET client profile
+//POST Add client
+router.post('/clients/add-client', clinician.create_client);
+//GET client profile
 router.get('/clients/client-profile', clinician.get_profile);
-// GET edit client
+//GET edit client
 router.get('/clients/client-profile/edit', clinician.get_edit);
+//POST edit client
+router.post('/clients/client-profile/edit', clinician.edit_client);
 //GET delete client
 router.get('/clients/client-profile/delete', clinician.get_delete);
+//POST delete client
+router.post('/clients/client-profile/delete', clinician.delete_client);
 //GET session
 router.get('/clients/client-profile/session', clinician.get_session);
 //GET sounds
