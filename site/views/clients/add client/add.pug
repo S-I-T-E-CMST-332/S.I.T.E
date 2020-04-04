@@ -1,1 +1,22 @@
-You reached the add page
+<!-- You reached the add page -->
+
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Create Client
+
+        // register form
+        form(method='POST' action='/register')
+          div.form-group
+            label(for='name') First Name:
+            input#name.form-control(type='text', placeholder='first name' name='first name')
+          div.form-group
+            label(for='email') Last Name:
+            input#email.form-control(type='text', placeholder='last name' name='last name')
+          div.form-group
+            label(for='favoriteBook') Date of Birth:
+            input#favoriteBook.form-control(type='date', placeholder='date of birth' name='date of birth')
+          button.btn.btn-primary(type='submit') Create
