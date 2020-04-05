@@ -45,7 +45,7 @@ exports.get_progress_sessions = function(req, res, next){
     res.render('clients/client\ profile/progress/progress\ overview/sessions/sessions');
 }
 
-exports.create_client[
+exports.create_client = [
     body('dob').isLength({min:1}).trim().withMessage("Please enter your client's dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
     body('fname').isLength({min: 1}).trim().withMessage("Please enter your client's first name").isAlphaNumeric().withMessage("No special characthers"),
     body('lname').isLength({min: 1}).trim().withMessage("Please enter your client's last name").isAlphaNumeric().withMessage("No special charachters"),

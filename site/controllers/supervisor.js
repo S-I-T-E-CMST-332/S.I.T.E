@@ -65,7 +65,7 @@ exports.create_user[
   }
 ];
 
-exports.edit_user[
+exports.edit_user = [
   body('username').isLength({min: 1}).withMessage("Please enter a username").isAlphaNumeric().withMessage("Letters or numbers only"),
   body('fname').isLength({min: 1}).withMessage("Please enter your first name").isAlphaNumeric().withMessage("Letters or numbers only"),
   body('lname').isLength({min: 1}).withMessage("Please enter your last name").isAlphaNumeric().withMessage("Letters or numbers only"),
