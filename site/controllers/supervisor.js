@@ -26,12 +26,12 @@ exports.get_delete_clinician = function(req, res, next){
 }
 
 exports.create_user[
-  body('username').isLength({min: 1}).trim().withMessage('Please enter your username').isAlphaNumeric().withMessage('Must be alphanumeric'),
-  body('password').isLength({min: 1}).trim().withMessage('Please enter your password'),
-  body('fname').isLength({min: 1}).trim().withMessage('Please enter your first name').isAlphaNumeric().withMessage('Must be alphanumeric'),
-  body('lname').isLength({min: 1}).trim().withMessage('Please enter your last name').isAlphaNumeric().withMessage('Must be alphanumeric'),
-  body('phone').isLength({min: 12, max: 12}).trim().withMessage('Please enter your phone number (eg. 555-123-4567)'),
-  body('email').isLength({min: 1}).trim().withMessage('Please enter your email (eg. example@domain.com)'),
+  sanitize.body('username').isLength({min: 1}).trim().withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),
+  sanitize.body('password').isLength({min: 1}).trim().withMessage('Please enter your password'),
+  sanitize.body('fname').isLength({min: 1}).trim().withMessage('Please enter your first name').isAlphanumeric().withMessage('Must be alphanumeric'),
+  sanitize.body('lname').isLength({min: 1}).trim().withMessage('Please enter your last name').isAlphanumeric().withMessage('Must be alphanumeric'),
+  sanitize.body('phone').isLength({min: 12, max: 12}).trim().withMessage('Please enter your phone number (eg. 555-123-4567)'),
+  sanitize.body('email').isLength({min: 1}).trim().withMessage('Please enter your email (eg. example@domain.com)'),
   //sanitize
   sanitize('username').escape(),
   sanitize('password').escape(),
@@ -66,11 +66,11 @@ exports.create_user[
 ];
 
 exports.edit_user = [
-  body('username').isLength({min: 1}).withMessage("Please enter a username").isAlphaNumeric().withMessage("Letters or numbers only"),
-  body('fname').isLength({min: 1}).withMessage("Please enter your first name").isAlphaNumeric().withMessage("Letters or numbers only"),
-  body('lname').isLength({min: 1}).withMessage("Please enter your last name").isAlphaNumeric().withMessage("Letters or numbers only"),
-  body('phone').isLength({min: 12, max: 12}).withMessage("Please enter your phone number (eg. 555-123-4567)"),
-  body('email').isLength({min: 1}).trim().withMessage('Please enter your email (eg. example@domain.com)'),
+  sanitize.body('username').isLength({min: 1}).withMessage("Please enter a username").isAlphanumeric().withMessage("Letters or numbers only"),
+  sanitize.body('fname').isLength({min: 1}).withMessage("Please enter your first name").isAlphanumeric().withMessage("Letters or numbers only"),
+  sanitize.body('lname').isLength({min: 1}).withMessage("Please enter your last name").isAlphanumeric().withMessage("Letters or numbers only"),
+  sanitize.body('phone').isLength({min: 12, max: 12}).withMessage("Please enter your phone number (eg. 555-123-4567)"),
+  sanitize.body('email').isLength({min: 1}).trim().withMessage('Please enter your email (eg. example@domain.com)'),
   sanitize('username').escape(),
   sanitize('fname').escape(),
   sanitize('lname').escape(),
