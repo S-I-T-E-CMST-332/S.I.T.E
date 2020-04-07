@@ -9,12 +9,12 @@ router.get('/add-user', supervisor.get_add_user);
 //POST add user
 router.post('/add-user', supervisor.create_user);
 //GET clinician profile
-router.get('/clinicians/clinician-profile', supervisor.get_clinician_profile);
+router.get('/clinicians/:clinician_id', supervisor.get_clinician_profile);
 //GET edit profile
-router.get('/clinicians/clinician-profile/edit', supervisor.get_edit_clinician);
+router.get('/clinicians/:clinician_id/edit', supervisor.get_edit_clinician);
 //POST edit profile
-router.post('/clinicians/clinician-profile/edit', supervisor.edit_user);
+router.post('/clinicians/:clinician_id/edit', supervisor.edit_user);
 //GET delete profile
-router.get('/clinicians/clinician-profile/delete', supervisor.get_delete_clinician);
+router.get('/clinicians/:clinician_id/delete', supervisor.get_delete_clinician);
 //POST delete profile
-router.post('/clinicians/clinician-profile/delete', supervisor.delete_clinician);
+router.post('/clinicians/:clinician_id/delete', supervisor.delete_clinician);
