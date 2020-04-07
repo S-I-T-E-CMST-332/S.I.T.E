@@ -16,24 +16,24 @@ router.get('/clients/add-client', clinician.get_add_client);
 //POST Add client
 router.post('/clients/add-client', clinician.create_client);
 //GET client profile
-router.get('/clients/client-profile', clinician.get_profile);
+router.get('/clients/:client_id', clinician.get_profile);
 //GET edit client
-router.get('/clients/client-profile/edit', clinician.get_edit);
+router.get('/clients/:client_id/edit', clinician.get_edit);//If it doesn't like var in middle, try clients/view/:client_id
 //POST edit client
-router.post('/clients/client-profile/edit', clinician.edit_client);
+router.post('/clients/:client_id/edit', clinician.edit_client);
 //GET delete client
-router.get('/clients/client-profile/delete', clinician.get_delete);
+router.get('/clients/:client_id/delete', clinician.get_delete);
 //POST delete client
-router.post('/clients/client-profile/delete', clinician.delete_client);
+router.post('/clients/:client_id/delete', clinician.delete_client);
 //GET session
-router.get('/clients/client-profile/session', clinician.get_session);
+router.get('/clients/:client_id/session', clinician.get_session);
 //GET sounds
-router.get('/clients/client-profile/session/sounds', clinician.get_sounds);
+router.get('/clients/:client_id/session/sounds', clinician.get_sounds);
 //GET progress
-router.get('/clients/client-profile/progress', clinician.get_progress);
+router.get('/clients/:client_id/progress', clinician.get_progress);
 //GET progress overview
-router.get('/clients/client-profile/progress/progress-overview', clinician.get_progress_overview);
+router.get('/clients/:client_id/progress/progress-overview', clinician.get_progress_overview);
 //GET progress (sessions)
-router.get('/clients/client-profile/progress/progress-overview/sessions', clinician.get_progress_sessions);
+router.get('/clients/:client_id/progress/progress-overview/sessions', clinician.get_progress_sessions);
 
 module.exports = router;
