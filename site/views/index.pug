@@ -2,4 +2,16 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to Speech Impediment Training Exercises, or <strong>#{title}</strong>
+  
+  h2 Dynamic Content
+  
+  if error
+    p There was an error getting the dynamic content.
+  else
+    p The clinic has the following record counts:
+	
+    ul
+      li #[strong Clients:] Value
+      li #[strong Clinicians:] Value
+      li #[strong Other:] Other information
