@@ -1,24 +1,22 @@
-You reached the delete page
-
-extends layout
+<!-- Client deletion page -->
 
 extends layout
 
 block content
   h1 #{title}
-  if book_genre.length
-    p #[strong Delete the following books before deleating the genre.]
+  if client_SOMETHING.length
+    p #[strong You must delete the following SOMETHINGs before deleting the client:]
     div(style='margin-left:20px;margin-top:20px')
-      h4 Books
+      h4 SOMETHINGs
       dl
-      each book in genre_books
+      each SOMETHING in client_SOMETHINGs
         dt
-          a(href=book.url) #{book.title}
-        dd #{book.summary}
+          a(href=SOMETHING.url)
+          <!-- What, if anything, would have to be deleted before deleting a client? -->
 
   else
     p Are you sure you want to delete the client?
     form(method='POST' action='')
       .form-group
-        input#genreid.form-control(type='hidden',name='genreid', required='true', value=genre._id )
+        input#clientid.form-control(type='hidden',name='clientid', required='true', value=client._id )
       button.btn.btn-primary(type='submit') Delete
