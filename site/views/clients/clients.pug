@@ -1,1 +1,19 @@
-You made it to the clients page
+<!-- You made it to the clients page -->
+
+extends layout
+
+button(type='button', class='btn btn-primary btn-block') Add Client
+
+div(class="container", style="margin-top:30px")
+    div(class="row")
+        div(class="col-sm-8")
+    h2 Client List
+
+  ul
+    - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+    each book in book_list
+      li 
+        a(href=book.url) #{book.title} 
+
+    else
+      li There are no Clients
