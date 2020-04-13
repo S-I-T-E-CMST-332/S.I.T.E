@@ -1,7 +1,8 @@
 let passport = require('passport');
 let account = require('../models/users'); //Called this account because passport uses the term user
 let Client = require('../models/client');
-const sanitize = require('express-validator');
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 let bcrypt = require('bcrypt');
 let uniqid = require('uniqid');//This and bcrypt did NOT show up on their own in the package json. Best of luck
 
@@ -25,20 +26,20 @@ exports.get_delete_clinician = function(req, res, next){
   res.render('clinicians/clinician\ profile/delete/delete');
 }
 
-exports.create_user[
-  sanitize.body('username').isLength({min: 1}).trim().withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),
-  sanitize.body('password').isLength({min: 1}).trim().withMessage('Please enter your password'),
-  sanitize.body('fname').isLength({min: 1}).trim().withMessage('Please enter your first name').isAlphanumeric().withMessage('Must be alphanumeric'),
-  sanitize.body('lname').isLength({min: 1}).trim().withMessage('Please enter your last name').isAlphanumeric().withMessage('Must be alphanumeric'),
-  sanitize.body('phone').isLength({min: 12, max: 12}).trim().withMessage('Please enter your phone number (eg. 555-123-4567)'),
-  sanitize.body('email').isLength({min: 1}).trim().withMessage('Please enter your email (eg. example@domain.com)'),
+exports.create_user = [
+  body('username').isLength({min: 1}).withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),
+  body('password').isLength({min: 1}).withMessage('Please enter your password'),
+  body('fname').isLength({min: 1}).withMessage('Please enter your first name').isAlphanumeric().withMessage('Must be alphanumeric'),
+  body('lname').isLength({min: 1}).withMessage('Please enter your last name').isAlphanumeric().withMessage('Must be alphanumeric'),
+  body('phone').isLength({min: 12, max: 12}).withMessage('Please enter your phone number (eg. 555-123-4567)'),
+  body('email').isLength({min: 1}).withMessage('Please enter your email (eg. example@domain.com)'),
   //sanitize
-  sanitize('username').escape(),
-  sanitize('password').escape(),
-  sanitize('fname').escape(),
-  sanitize('lname').escape(),
-  sanitize('phone').escape(),
-  sanitize('email').escape(),
+  sanitizeBody('username').trim().escape(),
+  sanitizeBody('password').trim().escape(),
+  sanitizeBody('fname').trim().escape(),
+  sanitizeBody('lname').trim().escape(),
+  sanitizeBody('phone').trim().escape(),
+  sanitizeBody('email').trim().escape(),
   (req, res, next) =>{
     const errors = validationResult(req);
     if (!errors.isEmpty()){
@@ -66,16 +67,16 @@ exports.create_user[
 ];
 
 exports.edit_user = [
-  sanitize.body('username').isLength({min: 1}).withMessage("Please enter a username").isAlphanumeric().withMessage("Letters or numbers only"),
-  sanitize.body('fname').isLength({min: 1}).withMessage("Please enter your first name").isAlphanumeric().withMessage("Letters or numbers only"),
-  sanitize.body('lname').isLength({min: 1}).withMessage("Please enter your last name").isAlphanumeric().withMessage("Letters or numbers only"),
-  sanitize.body('phone').isLength({min: 12, max: 12}).withMessage("Please enter your phone number (eg. 555-123-4567)"),
-  sanitize.body('email').isLength({min: 1}).trim().withMessage('Please enter your email (eg. example@domain.com)'),
-  sanitize('username').escape(),
-  sanitize('fname').escape(),
-  sanitize('lname').escape(),
-  sanitize('phone').escape(),
-  sanitize('email').escape(),
+  body('username').isLength({min: 1}).withMessage("Please enter a username").isAlphanumeric().withMessage("Letters or numbers only"),
+  body('fname').isLength({min: 1}).withMessage("Please enter your first name").isAlphanumeric().withMessage("Letters or numbers only"),
+  body('lname').isLength({min: 1}).withMessage("Please enter your last name").isAlphanumeric().withMessage("Letters or numbers only"),
+  body('phone').isLength({min: 12, max: 12}).withMessage("Please enter your phone number (eg. 555-123-4567)"),
+  body('email').isLength({min: 1}).withMessage('Please enter your email (eg. example@domain.com)'),
+  sanitizeBody('username').trim().escape(),
+  sanitizeBody('fname').trim().escape(),
+  sanitizeBody('lname').trim().escape(),
+  sanitizeBody('phone').trim().escape(),
+  sanitizeBody('email').trim().escape(),
   (req, res, next) =>{
     let newUser = new account({
       username: req.body.username,

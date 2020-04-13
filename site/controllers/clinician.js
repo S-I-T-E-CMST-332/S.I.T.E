@@ -1,5 +1,6 @@
 let Client = require('../models/client');
-const sanitize = require("express-validator");
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 
 exports.login = function(req, res, next){
     res.redirect('/clients');
@@ -46,12 +47,12 @@ exports.get_progress_sessions = function(req, res, next){
 }
 
 exports.create_client = [
-    sanitize.body('dob').isLength({min:1}).trim().withMessage("Please enter your client's dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
-    sanitize.body('fname').isLength({min: 1}).trim().withMessage("Please enter your client's first name").isAlphanumeric().withMessage("No special characthers"),
-    sanitize.body('lname').isLength({min: 1}).trim().withMessage("Please enter your client's last name").isAlphanumeric().withMessage("No special charachters"),
-    sanitize.body('dob').escape(),
-    sanitize.body('fname').escape(),
-    sanitize.body('lname').escape(),
+    body('dob').isLength({min:1}).withMessage("Please enter your client's dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
+    body('fname').isLength({min: 1}).withMessage("Please enter your client's first name").isAlphanumeric().withMessage("No special characthers"),
+    body('lname').isLength({min: 1}).withMessage("Please enter your client's last name").isAlphanumeric().withMessage("No special charachters"),
+    sanitizeBody('dob').toDate(),
+    sanitizeBody('fname').trim().escape(),
+    sanitizeBody('lname').trim().escape(),
     (req, res, next) =>{
         const errors = validationResult(req);
         if (!errors.isEmpty){
@@ -74,12 +75,12 @@ exports.create_client = [
 ];
 
 exports.edit_client = [
-    sanitize.body('dob').isLength({min:1}).trim().withMessage("Please enter your client's dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
-    sanitize.body('fname').isLength({min: 1}).trim().withMessage("Please enter your client's first name").isAlphanumeric().withMessage("No special characthers"),
-    sanitize.body('lname').isLength({min: 1}).trim().withMessage("Please enter your client's last name").isAlphanumeric().withMessage("No special charachters"),
-    sanitize.body('dob').escape(),
-    sanitize.body('fname').escape(),
-    sanitize.body('lname').escape(),
+    body('dob').isLength({min:1}).withMessage("Please enter your client's dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
+    body('fname').isLength({min: 1}).withMessage("Please enter your client's first name").isAlphanumeric().withMessage("No special characthers"),
+    body('lname').isLength({min: 1}).withMessage("Please enter your client's last name").isAlphanumeric().withMessage("No special charachters"),
+    sanitizeBody('dob').toDate(),
+    sanitizeBody('fname').trim().escape(),
+    sanitizeBody('lname').trim().escape(),
     (req, res, next) =>{
         const errors = validationResult(req);
         if (!errors.isEmpty()){

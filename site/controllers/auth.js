@@ -1,5 +1,6 @@
 let passport = require('passport');
-const sanitize = require('express-validator');
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 
 exports.has_auth = function(req, res, next){
     passport.use(new LocalStrategy(
@@ -15,10 +16,10 @@ exports.has_auth = function(req, res, next){
 }
 
 exports.login = function(req, res, next) { 
-    body('username').isLength({min: 1}).trim().withMessage('Please enter your username').isAlphaNumeric().withMessage('Must be alphanumeric');
-    body('password').isLength({min: 1}).trim().withMessage('Please enter your password');
-    sanitize('username').escape(),
-    sanitize('password').escape(),
+    body('username').isLength({min: 1}).withMessage('Please enter your username').isAlphaNumeric().withMessage('Must be alphanumeric');
+    body('password').isLength({min: 1}).withMessage('Please enter your password');
+    sanitizeBody('username').trim().escape(),
+    sanitizeBody('password').trim().escape(),
     passport.authenticate('local', {
         successRedirect: "/clinicians",
         failureRedirect: "/"
