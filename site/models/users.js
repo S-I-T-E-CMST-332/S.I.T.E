@@ -21,25 +21,25 @@ UserSchema
 });
 
 UserSchema
-.virtual('username')
+.virtual('user')
 .get(function(){
   return this.username;
 });
 
 UserSchema
-.virtual('fname')
+.virtual('first')
 .get(function(){
   return this.fname;
 });
 
 UserSchema
-.virtual('lname')
+.virtual('lastname')
 .get(function(){
   return this.lname;
 });
 
 UserSchema
-.virtual('phone')
+.virtual('number')
 .get(function(){
   return this.phone;
 });

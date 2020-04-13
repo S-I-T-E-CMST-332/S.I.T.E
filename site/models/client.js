@@ -17,13 +17,13 @@ ClientSchema
 });
 
 ClientSchema
-.virtual('fname')
+.virtual('firstname')
 .get(function(){
   return this.fname;
 });
 
 ClientSchema
-.virtual('lname')
+.virtual('lastname')
 .get(function(){
   return this.lname;
 });

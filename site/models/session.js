@@ -9,7 +9,7 @@ let SessionSchema = new Schema({
 });
 
 SessionSchema
-.virtual('date')
+.virtual('day')
 .get(function(){
   return this.date;
 });
