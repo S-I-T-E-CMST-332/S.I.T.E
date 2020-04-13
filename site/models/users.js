@@ -45,7 +45,7 @@ UserSchema
 });
 
 UserSchema
-.virtual('email')
+.virtual('mail')
 .get(function(){
   return this.email;
 });
