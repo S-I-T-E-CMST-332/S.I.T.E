@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var supervisorRouter = require('./routes/supervisor');
 
 var app = express();
 let passport = require('passport');
@@ -13,7 +14,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://leaderfirestar:<ksuwildcats67401>@ksucsd01-fvoyi.mongodb.net/test?retryWrites=true&w=majority';
+var mongoDB = 'mongodb+srv://leaderfirestar:ksuwildcats67401@ksucsd01-fvoyi.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
+app.use('/', supervisorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
