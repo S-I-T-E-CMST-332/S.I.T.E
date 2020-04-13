@@ -1,1 +1,22 @@
-this page is to delete a clinician AND ALL CLIENTS ATTATCHED
+<!-- this page is to delete a clinician AND ALL CLIENTS ATTATCHED -->
+
+extends layout
+
+block content
+  h1 #{title}:
+  if clinician_clients.length
+    p #[strong You must delete the following clients before deleting this clinician:]
+    div(style='margin-left:20px;margin-top:20px')
+      h4 Clients
+      dl
+      each client in clinician_clients
+        dt 
+          a(href=client.url)
+
+  else
+    p Do you really want to delete this Clinician?
+    
+    form(method='POST' action='')
+      div.form-group
+        input#clinicianid.form-control(type='hidden',name='clinicianid', required='true', value=clinician._id )
+      button.btn.btn-primary(type='submit') Delete

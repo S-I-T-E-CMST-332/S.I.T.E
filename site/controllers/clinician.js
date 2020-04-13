@@ -2,7 +2,7 @@ let Client = require('../models/client');
 const sanitize = require("express-validator");
 
 exports.login = function(req, res, next){
-    res.redirect('/cients');
+    res.redirect('/clients');
 }
 
 exports.get_clients = function(req, res, next){

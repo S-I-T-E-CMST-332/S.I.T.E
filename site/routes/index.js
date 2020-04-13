@@ -5,7 +5,7 @@ let clinician = require('../controllers/clinician');
 
 // GET home page
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'S.I.T.E.' });
 });
 //POST home page
 router.post('/', clinician.login); //Admin or supervisor??
