@@ -8,4 +8,10 @@ let SessionSchema = new Schema({
     date: {type: Date, required: true}
 });
 
+SessionSchema
+.virtual('date')
+.get(function(){
+  return this.date;
+});
+
 module.exports = mongoose.model('session', SessionSchema);

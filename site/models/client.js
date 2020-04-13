@@ -10,4 +10,22 @@ let ClientSchema = new Schema({
     lname: {type: String, required: true}
 });
 
+ClientSchema
+.virtual('name')
+.get(function(){
+  return this.fname + " " + this.lname;
+});
+
+ClientSchema
+.virtual('fname')
+.get(function(){
+  return this.fname;
+});
+
+ClientSchema
+.virtual('lname')
+.get(function(){
+  return this.lname;
+});
+
 module.exports = mongoose.model('client', ClientSchema);

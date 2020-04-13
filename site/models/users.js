@@ -14,4 +14,40 @@ let UserSchema = new Schema({
     flag: {type: Boolean, required: true}
 });
 
+UserSchema
+.virtual('name')
+.get(function(){
+  return this.fname + " " + this.lname;
+});
+
+UserSchema
+.virtual('username')
+.get(function(){
+  return this.username;
+});
+
+UserSchema
+.virtual('fname')
+.get(function(){
+  return this.fname;
+});
+
+UserSchema
+.virtual('lname')
+.get(function(){
+  return this.lname;
+});
+
+UserSchema
+.virtual('phone')
+.get(function(){
+  return this.phone;
+});
+
+UserSchema
+.virtual('email')
+.get(function(){
+  return this.email;
+});
+
 module.exports = mongoose.model('users', UserSchema);
