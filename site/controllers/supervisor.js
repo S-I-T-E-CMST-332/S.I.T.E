@@ -31,7 +31,7 @@ exports.create_user = [
   check('fname').isLength({min: 1}).withMessage('Please enter your first name').isAlphanumeric().withMessage('Must be alphanumeric'),
   check('lname').isLength({min: 1}).withMessage('Please enter your last name').isAlphanumeric().withMessage('Must be alphanumeric'),
   check('phone').isLength({min: 12, max: 12}).withMessage('Please enter your phone number (eg. 555-123-4567)'),
-  check('email').isLength({min: 1}).withMessage('Please enter your email (eg. example@domain.com)'),
+  check('email').isEmail().normalizeEmail().withMessage('Please enter your email (eg. example@domain.com)'),
   //sanitize
   check('username').trim().escape(),
   check('password').trim().escape(),
