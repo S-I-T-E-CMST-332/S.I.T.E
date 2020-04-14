@@ -1,8 +1,7 @@
 let passport = require('passport');
 let account = require('../models/users'); //Called this account because passport uses the term user
 let Client = require('../models/client');
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+const { check, validationResult } = require('express-validator');
 let bcrypt = require('bcrypt');
 let uniqid = require('uniqid');//This and bcrypt did NOT show up on their own in the package json. Best of luck
 
@@ -27,19 +26,19 @@ exports.get_delete_clinician = function(req, res, next){
 }
 
 exports.create_user = [
-  body('username').isLength({min: 1}).withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),
-  body('password').isLength({min: 1}).withMessage('Please enter your password'),
-  body('fname').isLength({min: 1}).withMessage('Please enter your first name').isAlphanumeric().withMessage('Must be alphanumeric'),
-  body('lname').isLength({min: 1}).withMessage('Please enter your last name').isAlphanumeric().withMessage('Must be alphanumeric'),
-  body('phone').isLength({min: 12, max: 12}).withMessage('Please enter your phone number (eg. 555-123-4567)'),
-  body('email').isLength({min: 1}).withMessage('Please enter your email (eg. example@domain.com)'),
+  check('username').isLength({min: 1}).withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),
+  check('password').isLength({min: 1}).withMessage('Please enter your password'),
+  check('fname').isLength({min: 1}).withMessage('Please enter your first name').isAlphanumeric().withMessage('Must be alphanumeric'),
+  check('lname').isLength({min: 1}).withMessage('Please enter your last name').isAlphanumeric().withMessage('Must be alphanumeric'),
+  check('phone').isLength({min: 12, max: 12}).withMessage('Please enter your phone number (eg. 555-123-4567)'),
+  check('email').isLength({min: 1}).withMessage('Please enter your email (eg. example@domain.com)'),
   //sanitize
-  sanitizeBody('username').trim().escape(),
-  sanitizeBody('password').trim().escape(),
-  sanitizeBody('fname').trim().escape(),
-  sanitizeBody('lname').trim().escape(),
-  sanitizeBody('phone').trim().escape(),
-  sanitizeBody('email').trim().escape(),
+  check('username').trim().escape(),
+  check('password').trim().escape(),
+  check('fname').trim().escape(),
+  check('lname').trim().escape(),
+  check('phone').trim().escape(),
+  check('email').trim().escape(),
   (req, res, next) =>{
     const errors = validationResult(req);
     if (!errors.isEmpty()){
@@ -67,16 +66,16 @@ exports.create_user = [
 ];
 
 exports.edit_user = [
-  body('username').isLength({min: 1}).withMessage("Please enter a username").isAlphanumeric().withMessage("Letters or numbers only"),
-  body('fname').isLength({min: 1}).withMessage("Please enter your first name").isAlphanumeric().withMessage("Letters or numbers only"),
-  body('lname').isLength({min: 1}).withMessage("Please enter your last name").isAlphanumeric().withMessage("Letters or numbers only"),
-  body('phone').isLength({min: 12, max: 12}).withMessage("Please enter your phone number (eg. 555-123-4567)"),
-  body('email').isLength({min: 1}).withMessage('Please enter your email (eg. example@domain.com)'),
-  sanitizeBody('username').trim().escape(),
-  sanitizeBody('fname').trim().escape(),
-  sanitizeBody('lname').trim().escape(),
-  sanitizeBody('phone').trim().escape(),
-  sanitizeBody('email').trim().escape(),
+  check('username').isLength({min: 1}).withMessage("Please enter a username").isAlphanumeric().withMessage("Letters or numbers only"),
+  check('fname').isLength({min: 1}).withMessage("Please enter your first name").isAlphanumeric().withMessage("Letters or numbers only"),
+  check('lname').isLength({min: 1}).withMessage("Please enter your last name").isAlphanumeric().withMessage("Letters or numbers only"),
+  check('phone').isLength({min: 12, max: 12}).withMessage("Please enter your phone number (eg. 555-123-4567)"),
+  check('email').isEmail().normalizeEmail().withMessage('Please enter your email (eg. example@domain.com)'),
+  check('username').trim().escape(),
+  check('fname').trim().escape(),
+  check('lname').trim().escape(),
+  check('phone').trim().escape(),
+  check('email').trim().escape(),
   (req, res, next) =>{
     let newUser = new account({
       username: req.body.username,
