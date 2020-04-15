@@ -3,7 +3,7 @@ let account = require('../models/users'); //Called this account because passport
 let Client = require('../models/client');
 const { check, validationResult } = require('express-validator');
 let bcrypt = require('bcrypt');
-let uniqid = require('uniqid');//This and bcrypt did NOT show up on their own in the package json. Best of luck
+let uniqid = require('uniqid');
 
 exports.get_clinicians = function(req, res, next){
   res.render('clinicians/clinicians');

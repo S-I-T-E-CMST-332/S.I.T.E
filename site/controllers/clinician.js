@@ -6,7 +6,11 @@ exports.login = function(req, res, next){
 }
 
 exports.get_clients = function(req, res, next){
-    res.render('clients/clients');
+    Client.find()
+        .exec(function(err,client_list){
+            if(err){return next(err);}
+            res.render('clients/clients', client_list);
+        });
 }
 
 exports.get_add_client = function(req, res, next){
