@@ -1,15 +1,14 @@
-<!-- You made it to the clients page -->
+extends ../layout.pug
 
-extends layout
-
-button(type='button', class='btn btn-primary btn-block') Add Client
+block content
+div
+  button(type='button', class='btn btn-primary btn-block') Add Client
 
 div(class="container", style="margin-top:30px")
     div(class="row")
         div(class="col-sm-8")
     h2 Client List
-
-  ul
+ul
     - client_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
     each client in client_list
       li 

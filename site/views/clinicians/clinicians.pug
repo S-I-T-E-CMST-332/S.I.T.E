@@ -1,6 +1,6 @@
-<!-- This is the clinician list page -->
-extends layout
+include ../layout.pug
 
+body
 button(type='button', class='btn btn-primary btn-block') Add Clinician
 
 div(class="container", style="margin-top:30px")
@@ -8,7 +8,7 @@ div(class="container", style="margin-top:30px")
         div(class="col-sm-8")
     h2 Clinician List
 
-  ul
+ul
     - clinician_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
     each clinician in clinician_list
       li 
