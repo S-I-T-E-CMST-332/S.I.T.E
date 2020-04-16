@@ -46,7 +46,7 @@ exports.get_progress_overview = function(req, res, next){
 }
 
 exports.get_progress_sessions = function(req, res, next){
-    res.render('clients/client\ profile/progress/progress\ overview/sessions/sessions');
+    res.render('clients/client\ profile/progress/sessions/sessions');
 }
 
 exports.create_client = [

@@ -32,9 +32,7 @@ router.get('/clients/:client_id/session/sounds', clinician.get_sounds);
 //GET Start Session
 router.get('/clients/:client_id/session/:sound_id/:card_id', clinician.get_card);
 //GET progress
-router.get('/clients/:client_id/progress', clinician.get_progress);
-//GET progress overview
-router.get('/clients/:client_id/progress/progress-overview', clinician.get_progress_overview);
+router.get('/clients/:client_id/progress-overview', clinician.get_progress_overview);
 //GET progress (sessions)
 router.get('/clients/:client_id/progress/progress-overview/sessions', clinician.get_progress_sessions);
 
