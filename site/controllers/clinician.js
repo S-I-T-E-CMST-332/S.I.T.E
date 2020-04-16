@@ -41,12 +41,8 @@ exports.get_card = function(req, res, next){
     res.render('clients/client\ profile/session/sounds/flashcard/flashcard');//This is the controller to load a new flashcard
 }
 
-exports.get_progress = function(req, res, next){
-    res.render('clients/client\ profile/progress/progress');
-}
-
 exports.get_progress_overview = function(req, res, next){
-    res.render('clients/client\ profile/progress/progress\ overview/overview');
+    res.render('clients/client\ profile/progress/overview');
 }
 
 exports.get_progress_sessions = function(req, res, next){
