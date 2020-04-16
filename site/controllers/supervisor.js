@@ -9,7 +9,7 @@ exports.get_clinicians = function(req, res, next){
   account.find()
     .exec(function(err, clinician_list){
       if(err){return next(err);}
-      res.render('clinicians/clinicians');
+      res.render('clinicians/clinicians', clinician_list);
     })
 }
 
