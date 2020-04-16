@@ -30,11 +30,15 @@ exports.get_delete = function(req, res, next){
 }
 
 exports.get_session = function(req, res, next){
-    res.render('clients/client\ profile/session/session');
+    res.render('clients/client\ profile/session/letters');
 }
 
 exports.get_sounds = function(req, res, next){
     res.render('clients/client\ profile/session/sounds/sounds');
+}
+
+exports.get_card = function(req, res, next){
+    res.render('clients/client\ profile/session/sounds/flashcard');
 }
 
 exports.get_progress = function(req, res, next){
