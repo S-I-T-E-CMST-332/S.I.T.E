@@ -1,18 +1,18 @@
-include ../layout.pug
+extends ../layout.pug
 
 block content
-button(type='button', class='btn btn-primary btn-block') Add Clinician
+  button(type='button', class='btn btn-primary btn-block') Add Clinician
 
-div(class="container", style="margin-top:30px")
-    div(class="row")
-        div(class="col-sm-8")
-    h2 Clinician List
+  div(class="container", style="margin-top:30px")
+      div(class="row")
+          div(class="col-sm-8")
+      h2 Clinician List
 
-ul
-    - clinician_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
-    each clinician in clinician_list
-      li 
-        a(href=clinician.url) #{clinician.title} 
+  ul
+      - clinician_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+      each clinician in clinician_list
+        li 
+          a(href=clinician.url) #{clinician.title} 
 
-    else
-      li There are no Clinicians
+      else
+        li There are no Clinicians
