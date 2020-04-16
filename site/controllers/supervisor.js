@@ -7,9 +7,9 @@ let uniqid = require('uniqid');
 
 exports.get_clinicians = function(req, res, next){
   account.find()
-    .exec(function(err, clinician_list){
+    .exec(function(err, list_clinician){
       if(err){return next(err);}
-      res.render('clinicians/clinicians', clinician_list);
+      res.render('clinicians/clinicians', {clinician_list:list_clinician});
     })
 }
 

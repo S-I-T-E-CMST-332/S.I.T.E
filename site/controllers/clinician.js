@@ -7,9 +7,9 @@ exports.login = function(req, res, next){
 
 exports.get_clients = function(req, res, next){
     Client.find()
-        .exec(function(err,client_list){
+        .exec(function(err,list_client){
             if(err){return next(err);}
-            res.render('clients/clients', client_list);
+            res.render('clients/clients', {client_list:list_client});
         });
 }
 
