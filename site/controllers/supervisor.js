@@ -6,7 +6,7 @@ let bcrypt = require('bcrypt');
 let uniqid = require('uniqid');
 
 exports.get_clinicians = function(req, res, next){
-  account.find()
+  account.find({'flag':false})
     .exec(function(err, clinician_list){
       if(err){return next(err);}
       res.render('clinicians/clinicians', {clinician_list:clinician_list});
