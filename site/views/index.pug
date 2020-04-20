@@ -3,15 +3,15 @@ extends layout
 block content
   h1= title
   p Welcome to Speech Impediment Training Exercises, or <strong>#{title}</strong>
-  
-  h2 Dynamic Content
-  
-  if error
-    p There was an error getting the dynamic content.
-  else
-    p The clinic has the following record counts:
-	
-    ul
-      li #[strong Clients:] Value
-      li #[strong Clinicians:] Value
-      li #[strong Other:] Other information
+  .main.container
+  .row
+    .col-md-6.col-md-offset-3
+      h1.display-4.m-b-2 Log In
+      form(method='POST' action='/login')
+        div.form-group
+          label(for='email') Email
+          input.form-control(type='text' id='email' placeholder='email' name='email')
+        div.form-group
+          label(for='password') Password
+          input.form-control(type='password' id='password' placeholder='password' name='password')
+        button.btn.btn-primary(type='submit') Log in 
