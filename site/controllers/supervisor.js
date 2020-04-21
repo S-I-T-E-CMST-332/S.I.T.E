@@ -46,7 +46,7 @@ exports.create_user = [
   (req, res, next) =>{
     const errors = validationResult(req);
     if (!errors.isEmpty()){
-      //we have to rerender the create page, as there were errors
+      res.render('clinicians/add-clinician/add_clinician', {errors: errors.array()});
       return;
     }else{
       let newUser = new account(
@@ -63,7 +63,7 @@ exports.create_user = [
         });
       newUser.save(function (err){
         if (err){return next(err); }
-        res.redirect('/clinicians/clinician-profile');
+        res.redirect('/clinicians');
       });
     }
   }
@@ -90,7 +90,7 @@ exports.edit_user = [
     });
     account.findByIdAndUpdate(req.params.id, newUser, function(err){
       if (err){return next(err);}
-      res.redirect('/clinicians/clinician-profile');
+      res.redirect('/clinicians');
     });
   }
 ];
@@ -110,7 +110,7 @@ exports.delete_clinician = function(req, res, next){
     }),
     account.findByIdAndDelete(req.body.clinician_id, function deleteClinician(err){
       if(err){return next(err);}
-      res.redirect('/clinicians/clinician-profile');
+      res.redirect('/clinicians');
     });
     }
   );
