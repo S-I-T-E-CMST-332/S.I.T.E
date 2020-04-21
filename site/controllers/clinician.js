@@ -30,7 +30,7 @@ exports.get_delete = function(req, res, next){
 }
 
 exports.get_session = function(req, res, next){
-    res.render('clients/client\ profile/session/letters');
+    res.render('clients/client\ profile/session/letter');
 }
 
 exports.get_sounds = function(req, res, next){
