@@ -7,14 +7,18 @@ block content
         h1.display-4.m-b-2 Create Client
 
         // register form
-        form(method='POST' action='/register')
+        form(method='POST' action='')
           div.form-group
-            label(for='name') First Name:
-            input#name.form-control(type='text', placeholder='first name' name='first name')
+            label(for='fname') First Name:
+            input#name.form-control(type='text', placeholder='first name' name='fname')
           div.form-group
-            label(for='email') Last Name:
-            input#email.form-control(type='text', placeholder='last name' name='last name')
+            label(for='lname') Last Name:
+            input#email.form-control(type='text', placeholder='last name' name='lname')
           div.form-group
-            label(for='favoriteBook') Date of Birth:
-            input#favoriteBook.form-control(type='date', placeholder='date of birth' name='date of birth')
+            label(for='dob') Date of Birth:
+            input#favoriteBook.form-control(type='date', placeholder='date of birth' name='dob')
           button.btn.btn-primary(type='submit') Create
+        if errors
+          ul
+            for error in errors
+              li != error.msg

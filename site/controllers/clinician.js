@@ -30,7 +30,7 @@ exports.get_delete = function(req, res, next){
 }
 
 exports.get_session = function(req, res, next){
-    res.render('clients/client\ profile/session/letters');
+    res.render('clients/client\ profile/session/letter');
 }
 
 exports.get_sounds = function(req, res, next){
@@ -59,11 +59,10 @@ exports.create_client = [
     (req, res, next) =>{
         const errors = validationResult(req);
         if (!errors.isEmpty){
-            //rerender the page
+            res.render('clients/add\ client/add', {errors: errors.array()});
         }else{
             let client = new Client(
                 {
-                    user_id: user_id,
                     dob: req.body.dob,
                     fname: req.body.fname,
                     lname: req.body.lname
@@ -87,7 +86,7 @@ exports.edit_client = [
     (req, res, next) =>{
         const errors = validationResult(req);
         if (!errors.isEmpty()){
-            //We have to rerender the page, there were errors
+            res.render('clients/client\ profile/edit/edit');
             return;
         }else{
             let client = new Client(
