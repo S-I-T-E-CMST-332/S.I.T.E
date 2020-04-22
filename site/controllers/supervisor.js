@@ -12,11 +12,15 @@ exports.get_clinicians = function(req, res, next){
     .exec(function(err, clinician_list){
       if(err){return next(err);}
       res.render('clinicians/clinicians', {clinician_list:clinician_list});
-    })
+    });
 }
 
 exports.get_add_user = function(req, res, next){
-  res.render('clinicians/add-clinician/add_clinician');
+  account.find({'flag':true})
+    .exec(function(err, supervisor_list){
+      if(err){return next(err);}
+      res.render('clinicians/add-clinician/add_clinician', {supervisors: supervisor_list});
+    });
 }
 
 exports.get_clinician_profile = function(req, res, next){
