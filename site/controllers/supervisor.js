@@ -3,8 +3,9 @@ let account = require('../models/users'); //Called this account because passport
 let Client = require('../models/client');
 const { check, validationResult } = require('express-validator');
 let bcrypt = require('bcrypt');
+let saltRounds = 10;
 let uniqid = require('uniqid');
-let salt = "salty";
+let salt = bcrypt.genSaltSync(saltRounds);
 
 exports.get_clinicians = function(req, res, next){
   account.find({'flag':false})
