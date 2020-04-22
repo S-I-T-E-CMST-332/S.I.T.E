@@ -30,3 +30,7 @@ block content
                 label(for='flag') Check for Supervisor
                 input#supervisorCheck(type='checkbox', name='flag')
             button.btn.btn-primary(type='submit') Create
+        if errors
+          ul
+            for error in errors
+              li != error.msg
