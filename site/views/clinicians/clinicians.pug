@@ -12,7 +12,7 @@ block content
       - clinician_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
       each clinician in clinician_list
         li 
-          a(href=clinician.url) #{clinician.title} 
+          a(href='/clinicians/'+clinician._id) #{clinician.name} 
 
       else
         li There are no Clinicians
