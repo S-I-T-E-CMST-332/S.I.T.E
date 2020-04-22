@@ -61,7 +61,7 @@ exports.create_user = [
           lname: req.body.lname,
           phone: req.body.phone,
           email: req.body.email,
-          flag: req.body.flag //Checkbox for supervisor or not
+          flag: req.body.flag ? true : false,//Checkbox for supervisor or not
         });
       newUser.save(function (err){
         if (err){return next(err); }
