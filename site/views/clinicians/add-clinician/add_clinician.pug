@@ -29,6 +29,11 @@ block content
             .form-group
                 label(for='flag') Check for Supervisor
                 input#supervisorCheck(type='checkbox', name='flag')
+            .form-group
+                label(for='supervisor') Managing Supervisor
+                select(name='supervisor')
+                    for supervisor in supervisors
+                        option(value=supervisor.user_id) #{supervisor.name}
             button.btn.btn-primary(type='submit') Create
         if errors
           ul
