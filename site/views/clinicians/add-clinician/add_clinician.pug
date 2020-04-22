@@ -33,7 +33,7 @@ block content
                 label(for='supervisor') Managing Supervisor
                 select(name='supervisor')
                     for supervisor in supervisors
-                        option(value=supervisor.user_id) #{supervisor.name}
+                        option(value=supervisor.supervisor_id) #{supervisor.name}
             button.btn.btn-primary(type='submit') Create
         if errors
           ul
