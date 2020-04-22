@@ -22,8 +22,11 @@ block content
                 input#email.form-control(type='text', placeholder='last name' name='lname')
             div.form-group
                 label(for='Phone') Phone:
-                input#favoriteBook.form-control(type='number', placeholder='phone number' name='phone')
+                input#favoriteBook.form-control(type='text', placeholder='phone number' name='phone')
             div.form-group
                 label(for='email') Email:
                 input#name.form-control(type='text', placeholder='email' name='email')
+            .form-group
+                label(for='supervisor') Check for Supervisor
+                input#supervisorCheck(type='checkbox', name='supervisor')
             button.btn.btn-primary(type='submit') Create
