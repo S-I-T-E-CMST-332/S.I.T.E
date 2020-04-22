@@ -1,4 +1,4 @@
-extends layout
+extends ../../layout
 
 block content
   .main.container
@@ -7,7 +7,7 @@ block content
         h1.display-4.m-b-2 Create Client
 
         // register form
-        form(method='POST' action='/register')
+        form(method='POST' action='')
             div.form-group
                 label(for='username') Username:
                 input#name.form-control(type='text', placeholder='username' name='username')
@@ -26,4 +26,4 @@ block content
             div.form-group
                 label(for='email') Email:
                 input#name.form-control(type='text', placeholder='email' name='email')
-          button.btn.btn-primary(type='submit') Create
+            button.btn.btn-primary(type='submit') Create
