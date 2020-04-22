@@ -6,7 +6,7 @@ let auth = require('../controllers/auth');
 
 // GET home page
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'S.I.T.E.' });
+  res.render('index', { title: 'S.I.T.E.'});
 });
 //POST home page
 router.post('/', auth.login);
