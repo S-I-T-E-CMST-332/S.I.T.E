@@ -1,5 +1,4 @@
-let passport = require('passport');
-let account = require('../models/users'); //Called this account because passport uses the term user
+let account = require('../models/users');
 let Client = require('../models/client');
 const { check, validationResult } = require('express-validator');
 let bcrypt = require('bcrypt');

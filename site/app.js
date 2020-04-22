@@ -8,10 +8,7 @@ var indexRouter = require('./routes/index');
 var supervisorRouter = require('./routes/supervisor');
 
 var app = express();
-let passport = require('passport');
 let bodyParser = require('body-parser');
-app.use(passport.initialize());
-app.use(passport.session());
 
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb+srv://leaderfirestar:ksuwildcats67401@ksucsd01-fvoyi.mongodb.net/test?retryWrites=true&w=majority';
@@ -29,8 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('express-session')({ secret: 'I have no secret', resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/', supervisorRouter);

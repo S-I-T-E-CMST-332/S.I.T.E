@@ -1,10 +1,6 @@
 let Client = require('../models/client');
 const { check, validationResult } = require('express-validator');
 
-exports.login = function(req, res, next){
-    res.redirect('/clients');
-}
-
 exports.get_clients = function(req, res, next){
     Client.find()
         .exec(function(err, client_list){
