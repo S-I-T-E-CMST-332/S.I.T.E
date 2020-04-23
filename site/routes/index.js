@@ -2,13 +2,14 @@ var express = require('express');
 var router = express.Router();
 let client = require('../controllers/client');
 let clinician = require('../controllers/clinician');
+let auth = require('../controllers/auth');
 
 // GET home page
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'S.I.T.E.' });
+  res.render('index', { title: 'S.I.T.E.'});
 });
 //POST home page
-router.post('/', clinician.login); //Admin or supervisor??
+router.post('/', auth.login);
 // GET client list
 router.get('/clients', clinician.get_clients);
 //GET Add client
