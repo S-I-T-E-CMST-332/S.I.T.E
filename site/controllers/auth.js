@@ -14,7 +14,7 @@ exports.login = function(req, res, next) {
       .exec(function(err, user){
         if(err){return next(err);}
         if(user == null){res.render('index', {error: "User does not exist"});}
-        if(bcrypt.hashSync(req.body.password, salt) == user.password){
+        if(bcrypt.compare(req.body.password, user.password)){
           if(user.flag === true){
             req.session.user = user.username;
             req.session.flag = true;
@@ -26,6 +26,7 @@ exports.login = function(req, res, next) {
           }
         }else{
           res.render('index', {error:'password is incorrect'});
+          console.log(user.password);
         }
       });
 }
