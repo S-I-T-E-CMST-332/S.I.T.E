@@ -1,6 +1,7 @@
 let Client = require('../models/client');
 const session = require('express-session');
 const { check, validationResult } = require('express-validator');
+let uniqid = require('uniqid')
 
 exports.get_clients = function(req, res, next){
     Client.find()
