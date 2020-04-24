@@ -1,4 +1,5 @@
 let Client = require('../models/client');
+const session = require('express-session');
 const { check, validationResult } = require('express-validator');
 
 exports.get_clients = function(req, res, next){
@@ -59,6 +60,8 @@ exports.create_client = [
         }else{
             let client = new Client(
                 {
+                    user_id: req.session.user_id,
+                    supervisor_id: req.session.supervisor_id,
                     dob: req.body.dob,
                     fname: req.body.fname,
                     lname: req.body.lname
