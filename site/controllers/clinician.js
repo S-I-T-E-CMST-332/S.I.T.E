@@ -60,8 +60,8 @@ exports.create_client = [
         }else{
             let client = new Client(
                 {
+                    clinet_id: uniqid(),
                     user_id: req.session.user_id,
-                    supervisor_id: req.session.supervisor_id,
                     dob: req.body.dob,
                     fname: req.body.fname,
                     lname: req.body.lname
