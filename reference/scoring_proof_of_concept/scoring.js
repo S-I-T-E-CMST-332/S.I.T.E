@@ -1,30 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-</head>
-<body>
-  <header>
-    <h1>Scoring Proof-of-Concept</h1>
-  </header>
-  <hr />
-  <div id="output">
-    Image goes here.
-  </div>
-  <div id="answers">
-    <button id="button0" onclick="checkAnswer('correct')">Correct</button>
-    <button id="button1" onclick="checkAnswer('partial')">Partial</button>
-    <button id="button2" onclick="checkAnswer('incorrect')">Incorrect</button>
-  </div>
-  <div id="scoreboard">
-    <p id="totalCount"></p>
-    <p id="rightScore"></p>
-    <p id="partScore"></p>
-    <p id="wrongScore"></p>
-  </div>
-  
-  <script>
-    "use strict";
+"use strict";
     var output = document.getElementById("output");
     var answers = document.getElementById("answers");
     var images = ["first", "second", "third", "fourth", "fifth", "sixth", "last one"];
@@ -80,6 +54,3 @@
       partScore.innerHTML = "Partial: " + part;
       wrongScore.innerHTML = "Incorrect: " + wrong;
     }
-  </script>
-</body>
-</html>
