@@ -9,7 +9,7 @@ block content
       h2 Clinician List
 
   ul
-      - clinician_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+      - clinician_list.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
       each clinician in clinician_list
         li 
           a(href='/clinicians/'+clinician._id) #{clinician.name} 

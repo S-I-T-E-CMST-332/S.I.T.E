@@ -35,7 +35,3 @@ block content
                     for supervisor in supervisors
                         option(value=supervisor.supervisor_id) #{supervisor.name}
             button.btn.btn-primary(type='submit') Create
-        if errors
-          ul
-            for error in errors
-              li != error.msg
