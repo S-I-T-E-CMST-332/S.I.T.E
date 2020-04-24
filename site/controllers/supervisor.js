@@ -50,6 +50,12 @@ exports.create_user = [
   check('email').trim().escape(),
   (req, res, next) =>{
     const errors = validationResult(req);
+
+    account.find({"username": req.body.username})
+      .exec(function(err, user){
+        if(err){return next(err);}
+        if(user !== null){res.render('clinicians/add-clinician/add_clinician'), {error: "Username is taken", supervisors: req.body.supervisors}}
+      });
     if (!errors.isEmpty()){
       res.render('clinicians/add-clinician/add_clinician', {errors: errors.array()});
       return;
