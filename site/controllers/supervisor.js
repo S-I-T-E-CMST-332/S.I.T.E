@@ -116,13 +116,13 @@ exports.delete_clinician = function(req, res, next){
     },
   }, function(err, results){
     if(err){return next(err);}
-    Client.findByIdAndDelete({'user_id': req.body.clinician_id}, function deleteClient(err){
-      if(err){return next(err);}
-    }),
-    account.findByIdAndDelete(req.body.clinician_id, function deleteClinician(err){
-      if(err){return next(err);}
-      res.redirect('/clinicians');
+    if(results.clients > 0){
+      res.render("Whatever page this is", {error: "This person has clients. Please delete them first"});
+    }else{
+      account.findByIdAndDelete(req.body.clinician_id, function deleteClinician(err){
+        if(err){return next(err);}
+        res.redirect('/clinicians');
     });
     }
-  );
+  });
 }
