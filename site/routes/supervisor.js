@@ -18,5 +18,7 @@ router.post('/clinicians/:clinician_id/edit', supervisor.edit_user);
 router.get('/clinicians/:clinician_id/delete', supervisor.get_delete_clinician);
 //POST delete profile
 router.post('/clinicians/:clinician_id/delete', supervisor.delete_clinician);
+//GET logout
+router.get('/logout', auth.logout);
 
 module.exports = router;
