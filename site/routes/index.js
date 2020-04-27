@@ -27,11 +27,11 @@ router.get('/clients/:client_id/delete', clinician.get_delete);
 //POST delete client
 router.post('/clients/:client_id/delete', clinician.delete_client);
 //GET letter
-router.get('/clients/:client_id/session', clinician.get_session);
+router.get('/clients/:client_id/letters', clinician.get_session);
 //GET sounds
-router.get('/clients/:client_id/session/sounds', clinician.get_sounds);
+router.get('/clients/:client_id/letters/sounds', clinician.get_sounds);
 //GET Start Session
-router.get('/clients/:client_id/session/:sound_id/:card_id', clinician.get_card);
+router.get('/clients/:client_id/letters/:sound_id/:card_id', clinician.get_card);
 //GET progress
 router.get('/clients/:client_id/progress-overview', clinician.get_progress_overview);
 //GET progress (sessions)
