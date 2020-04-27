@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let supervisor = require('../controllers/supervisor');
+let auth = require('../controllers/auth');
 
 //GET clinician list
 router.get('/clinicians', supervisor.get_clinicians);
