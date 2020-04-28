@@ -32,6 +32,10 @@ router.get('/clients/:client_id/letters', clinician.get_session);
 router.get('/clients/:client_id/letters/sounds', clinician.get_sounds);
 //GET Start Session
 router.get('/clients/:client_id/letters/:sound_id/:card_id', clinician.get_card);
+//POST Correct, Incorrect, and Kindof. Only to be accessed through ajax
+router.post('/correct', client.correct);
+router.post('/incorrect', client.incorrect);
+router.post('/kindof', client.kindof);
 //GET progress
 router.get('/clients/:client_id/progress-overview', clinician.get_progress_overview);
 //GET progress (sessions)
