@@ -5,6 +5,7 @@ let bcrypt = require('bcrypt');
 let saltRounds = 10;
 let uniqid = require('uniqid');
 let salt = bcrypt.genSaltSync(saltRounds);
+let session = require('express-session');
 
 exports.get_clinicians = function(req, res, next){
   account.find({'flag':false})
