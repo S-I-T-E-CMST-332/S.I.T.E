@@ -28,15 +28,23 @@ exports.get_clinician_profile = function(req, res, next){
     .exec(function(err, clinician){
       if(err){return next(err);}
       res.render('clinicians/clinician\ profile/profile', {clinician: clinician});
-    })
+    });
 }
 
 exports.get_edit_clinician = function(req, res, next){
-  res.render('clinicians/clinician\ profile/edit/edit');
+  account.findById(req.params.clinician_id)
+    .exec(function(err, clinician){
+      if(err){return next(err);}
+      res.render('clinicians/clinician\ profile/edit/edit', {clinician: clinician});
+    });
 }
 
 exports.get_delete_clinician = function(req, res, next){
-  res.render('clinicians/clinician\ profile/delete/delete');
+  account.findById(req.params.clinician_id)
+    .exec(function(err, clinician){
+      if(err){return next(err);}
+      res.render('clinicians/clinician\ profile/delete/delete', {clinician: clinician});
+    })
 }
 
 exports.create_user = [
