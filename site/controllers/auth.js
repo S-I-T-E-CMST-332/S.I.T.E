@@ -5,11 +5,17 @@ let bcrypt = require('bcrypt');
 let saltRounds = 10;
 let salt = bcrypt.genSaltSync(saltRounds);
 
-exports.login = function(req, res, next) {
-    check('username').isLength({min: 1}).withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric');
-    check('password').isLength({min: 1}).withMessage('Please enter your password');
+exports.login = [
+    check('username').isLength({min: 1}).withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),
+    check('password').isLength({min: 1}).withMessage('Please enter your password'),
     check('username').trim().escape(),
     check('password').trim().escape(),
+    (req, res)=>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+      res.render('index', {errors: errors.array()});
+      return;
+    }
     user.find({'username': req.body.username})
       .exec(function(err, user){
         if(err){return next(err);}
@@ -30,7 +36,8 @@ exports.login = function(req, res, next) {
           res.render('index', {error:'password is incorrect'});
         }
       });
-}
+    }
+    ]
 
 exports.logout = function(req, res, next) { 
     req.logout();
