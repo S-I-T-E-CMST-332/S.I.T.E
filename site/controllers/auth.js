@@ -20,24 +20,27 @@ exports.login = [
       .exec(function(err, user){
         if(err){return next(err);}
         if(user == null){res.render('index', {error: "User does not exist"});}
-        if(bcrypt.compare(req.body.password, user[0].password)){
-          if(user[0].flag === true){
-            req.session.user_id = user[0].user_id;
-            req.session.supervisor_id = user[0].supervisor_id;
-            req.session.flag = true;
-            res.redirect('/clinicians');
+        bcrypt.compare(req.body.password, user[0].password, function(err, succ, next){
+          if(err){return next(err);}
+          if(succ){
+            if(user[0].flag === true){
+              req.session.user_id = user[0].user_id;
+              req.session.supervisor_id = user[0].supervisor_id;
+              req.session.flag = true;
+              res.redirect('/clinicians');
+            }else{
+              req.session.user_id = user[0].user_id;
+              req.supervisor_id = user[0].supervisor_id;
+              req.session.flag = false;
+              res.redirect('/clients');
+            }
           }else{
-            req.session.user_id = user[0].user_id;
-            req.supervisor_id = user[0].supervisor_id;
-            req.session.flag = false;
-            res.redirect('/clients');
+            res.render('index', {error:'password is incorrect'});
           }
-        }else{
-          res.render('index', {error:'password is incorrect'});
-        }
       });
     }
-    ]
+  )}
+]
 
 exports.logout = function(req, res, next) { 
     req.logout();
