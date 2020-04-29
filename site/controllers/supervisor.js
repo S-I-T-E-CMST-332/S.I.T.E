@@ -93,6 +93,10 @@ exports.edit_user = [
   check('phone').trim().escape(),
   check('email').trim().escape(),
   (req, res, next) =>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      res.render('clinicians/clinician\ profile/edit/edit', {errors: errors.array()});
+    }
     let newUser = new account({
       username: req.body.username,
       fname: req.body.fname,

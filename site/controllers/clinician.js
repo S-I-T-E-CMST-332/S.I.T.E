@@ -86,7 +86,7 @@ exports.edit_client = [
     (req, res, next) =>{
         const errors = validationResult(req);
         if (!errors.isEmpty()){
-            res.render('clients/client\ profile/edit/edit');
+            res.render('clients/client\ profile/edit/edit', {errors: errors.array()});
             return;
         }else{
             let client = new Client(
