@@ -10,7 +10,7 @@ exports.correct = function(req, res, next){
         correct: currentLetter.correct++
     });
     let Form = new form({
-        correct = currentForm.correct++
+        correct:currentForm.correct++
     });
     let Session = new session({
         correct: currentSess.correct++
@@ -34,10 +34,10 @@ exports.incorrect = function(req, res, next){
         incorrect: currentLetter.incorrect++
     });
     let Form = new form({
-        incorrect = currentForm.incorrect++
+        incorrect:currentForm.incorrect++
     });
     let Session = new session({
-        incorrect: currentSess.incorrect++
+        incorrect:currentSess.incorrect++
     });
     letter.findByIdAndUpdate(req.session.letter_id, Letter, function(err){
         if(err){return next(err);}
@@ -58,7 +58,7 @@ exports.kindof = function(req, res, next){
         kinda: currentLetter.kinda++
     });
     let Form = new form({
-        kinda = currentForm.kinda++
+        kinda:currentForm.kinda++
     });
     let Session = new session({
         kinda: currentSess.kinda++
