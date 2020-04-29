@@ -24,7 +24,11 @@ exports.get_add_user = function(req, res, next){
 }
 
 exports.get_clinician_profile = function(req, res, next){
-  res.render('clinicians/clinician\ profile/profile');
+  account.findById(req.params.clinician_id)
+    .exec(function(err, clinician){
+      if(err){return next(err);}
+      res.render('clinicians/clinician\ profile/profile', {clinician: clinician});
+    })
 }
 
 exports.get_edit_clinician = function(req, res, next){

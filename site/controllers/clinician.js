@@ -16,7 +16,11 @@ exports.get_add_client = function(req, res, next){
 }
 
 exports.get_profile = function(req, res, next){
-    res.render('clients/client\ profile/profile');
+    Client.findById(req.params.client_id)
+        .exec(function(err, client){
+            if(err){return next(err);}
+            res.render('clients/client\ profile/profile', {client: client});
+        });
 }
 
 exports.get_edit = function(req, res, next){
