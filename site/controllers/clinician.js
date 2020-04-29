@@ -24,11 +24,19 @@ exports.get_profile = function(req, res, next){
 }
 
 exports.get_edit = function(req, res, next){
-    res.render('clients/client\ profile/edit/edit');
+    Client.findById(req.params.client_id)
+        .exec(function(err, client){
+            if(err){return next(err);}
+            res.render('clients/client\ profile/edit/edit', {client: client});
+        });
 }
 
 exports.get_delete = function(req, res, next){
-    res.render('clients/client\ profile/delete/delete');
+    Client.findById(req.params.client_id)
+        .exec(function(err, client){
+            if(err){return next(err);}
+            res.render('clients/client\ profile/delete/delete', {client: client});
+        });
 }
 
 exports.get_session = function(req, res, next){
