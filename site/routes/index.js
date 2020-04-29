@@ -4,10 +4,6 @@ let client = require('../controllers/client');
 let clinician = require('../controllers/clinician');
 let auth = require('../controllers/auth');
 
-// Logout functionality
-router.post('/logout', user.logout);
-router.get('/logout', user.logout);
-
 // GET home page
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'S.I.T.E.'});
