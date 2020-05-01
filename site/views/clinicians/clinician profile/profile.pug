@@ -1,19 +1,19 @@
-extends ...layout.pug
+extends ../../layout.pug
 
 block content
 
   h1 Clinician: #{clinician.name}
   
-  div(style='margin-left:20px;margin-top:20px')
+  div
 
   p #[strong clinician:] 
-    a(href=book.clinician.url) #{book.clinician.name}
+    a(href=book.clinician.url) #{clinician.name}
   p #[strong Summary:] #{book.summary}
   p #[strong ISBN:] #{book.isbn}
   p #[strong Genre:]&nbsp;
-    each val, index in book.genre
+    each val, client in client.list
       a(href=val.url) #{val.name}
-      if index < book.genre.length - 1
+      if index < client.length - 1
         |, 
 
     hr

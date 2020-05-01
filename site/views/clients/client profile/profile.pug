@@ -1,1 +1,27 @@
-You made it to the profiles page
+extends ../../../layout.pug
+
+block content
+
+  h1 Client: #{clent.name}
+  
+  div
+
+  p #[strong clent:] 
+    a(href=clinician.url) #{clinician.name}
+  p #[strong Summary:] #{book.summary}
+  p #[strong ISBN:] #{book.isbn}
+  p #[strong Genre:]&nbsp;
+
+
+    hr
+    p
+    a(href=clinician.url+'/delete') Delete Client
+    hr
+    p
+    a(href=clinician.url+'/update') Update Client
+    hr
+    p
+    a(href=clinician.url+'/update') Reports
+    hr
+    p
+    a(href=clinician.url+'/update') Start Session
