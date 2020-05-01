@@ -1,1 +1,29 @@
-this page is to edit a clinician's profile
+extends ../../../layout.pug
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Update User
+
+        // register form
+        form(method='POST')
+            div.form-group
+                label(for='username') Username:
+                input#name.form-control(type='text', placeholder=clinician.username name='username')
+            div.form-group
+                label(for='password') Password:
+                input#name.form-control(type='password', placeholder='Only if you want to change' name='password')
+            div.form-group
+                label(for='fname') First Name:
+                input#name.form-control(type='text', placeholder=clinician.fname name='fname')
+            div.form-group
+                label(for='lname') Last Name:
+                input#email.form-control(type='text', placeholder=clinician.lname name='lname')
+            div.form-group
+                label(for='Phone') Phone:
+                input#favoriteBook.form-control(type='text', placeholder=clinician.phone name='phone')
+            div.form-group
+                label(for='email') Email:
+                input#name.form-control(type='text', placeholder=clinician.email name='email')
+            button.btn.btn-primary(type='submit') Update
