@@ -104,6 +104,7 @@ exports.edit_user = [
   check('lname').trim().escape(),
   check('phone').trim().escape(),
   check('email').trim().escape(),
+  req.body.password == null ? null : check(password).trim().escape(),
   (req, res, next) =>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -111,6 +112,7 @@ exports.edit_user = [
     }
     let newUser = new account({
       username: req.body.username,
+      password: req.body.password == null ? account.findById(req.params.clinician_id).password : req.body.password,
       fname: req.body.fname,
       lname: req.body.lname,
       phone: req.body.phone,
