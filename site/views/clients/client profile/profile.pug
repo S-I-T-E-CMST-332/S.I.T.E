@@ -1,18 +1,18 @@
-extends ../../../layout.pug
+extends ../../layout.pug
 
 block content
 
-  h1 Client: #{clent.name}
+  h1 Client: #{client.name}
   
   div
 
-  p #[strong DOB:] #{dob}
+  p #[strong DOB:] #{client.dob}
 
     p
-    a(href=clinician.url+'/delete') Delete Client
+    a(href='/clients/'+client._id+'/delete') Delete Client
     p
-    a(href=clinician.url+'/update') Update Client
+    a(href='/clients/'+client._id+'/update') Update Client
     p
-    a(href=clinician.url+'/update') Reports
+    a(href='/update') Reports
     p
-    a(href=clinician.url+'/update') Start Session
+    a(href='/clients/'+client._id+'/letters') Start Session

@@ -104,7 +104,7 @@ exports.edit_user = [
   check('lname').trim().escape(),
   check('phone').trim().escape(),
   check('email').trim().escape(),
-  req.body.password == null ? null : check(password).trim().escape(),
+  check('password').isEmpty() ? null : check(password).trim().escape(),
   (req, res, next) =>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){

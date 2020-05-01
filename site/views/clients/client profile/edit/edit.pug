@@ -1,26 +1,24 @@
-extends ...layout.pug
+extends ../../layout
 
 block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Edit Client
 
-  h1 Author: #{author.name}
-  p #{author.date_of_birth} - #{author.date_of_death}
-  
-  div(style='margin-left:20px;margin-top:20px')
-
-    h4 Books
-    
-    dl
-      each book in author_books
-        dt 
-          a(href=book.url) #{book.title}
-        dd #{book.summary}
-
-      else
-        p This author has no books.
-
-    hr
-    p
-    a(href=author.url+'/delete') Delete author
-    hr
-    p
-    a(href=author.url+'/update') Update author
+        // register form
+        form(method='POST')
+          div.form-group
+            label(for='fname') First Name:
+            input#name.form-control(type='text', placeholder=client.fname name='fname')
+          div.form-group
+            label(for='lname') Last Name:
+            input#email.form-control(type='text', placeholder=client.lname name='lname')
+          div.form-group
+            label(for='dob') Date of Birth:
+            input#favoriteBook.form-control(type='date', placeholder=client.dob name='dob')
+          button.btn.btn-primary(type='submit') Update
+        if errors
+          ul
+            for error in errors
+              li != error.msg
