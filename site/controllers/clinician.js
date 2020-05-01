@@ -19,6 +19,7 @@ exports.get_profile = function(req, res, next){
     Client.findById(req.params.client_id)
         .exec(function(err, client){
             if(err){return next(err);}
+            req.session.client_id = req.params.client_id;
             res.render('clients/client\ profile/profile', {client: client});
         });
 }

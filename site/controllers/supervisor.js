@@ -27,6 +27,7 @@ exports.get_clinician_profile = function(req, res, next){
   account.findById(req.params.clinician_id)
     .exec(function(err, clinician){
       if(err){return next(err);}
+      req.session.clinician_id = req.params.clinician_id;
       res.render('clinicians/clinician\ profile/profile', {clinician: clinician});
     });
 }
@@ -117,7 +118,7 @@ exports.edit_user = [
       phone: req.body.phone,
       email: req.body.email
     });
-    account.findByIdAndUpdate(req.params.id, newUser, function(err){
+    account.findByIdAndUpdate(req.session.clinician_id, newUser, function(err){
       if (err){return next(err);}
       res.redirect('/clinicians');
     });
