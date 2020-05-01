@@ -42,8 +42,8 @@ exports.login = [
   )}
 ]
 
-exports.logout = function(req, res, next) { 
-    req.logout();
-    req.session.destroy();
-    res.redirect('/');
+exports.logout = function(req, res, next) {
+  req.session.destroy((err) => {
+	res.redirect('/');
+  });
 }
