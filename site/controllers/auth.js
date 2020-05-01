@@ -30,7 +30,7 @@ exports.login = [
               res.redirect('/clinicians');
             }else{
               req.session.user_id = user[0].user_id;
-              req.supervisor_id = user[0].supervisor_id;
+              req.session.supervisor_id = user[0].supervisor_id;
               req.session.flag = false;
               res.redirect('/clients');
             }
