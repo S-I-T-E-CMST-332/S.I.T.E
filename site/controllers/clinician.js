@@ -19,7 +19,6 @@ exports.get_profile = function(req, res, next){
     Client.findById(req.params.client_id)
         .exec(function(err, client){
             if(err){return next(err);}
-            req.session.client_id = req.params.client_id;
             res.render('clients/client\ profile/profile', {client: client});
         });
 }
@@ -99,17 +98,20 @@ exports.edit_client = [
     (req, res, next) =>{
         const errors = validationResult(req);
         if (!errors.isEmpty()){
-            res.render('clients/client\ profile/edit/edit', {errors: errors.array()});
+            //res.render('clients/client\ profile/edit/edit', {fname: req.body.fname, lname: req.body.lname, errors: errors.array()});
+            console.log(errors);
             return;
         }else{
             let client = new Client(
                 {
+                    _id: req.params.client_id,
+                    user_id: req.session.user_id,
                     dob: req.body.dob,
                     fname: req.body.fname,
                     lname: req.body.lname
                 }
             );
-            Client.findByIdAndUpdate(req.params.id, client, function(err){
+            Client.findByIdAndUpdate(req.params.client_id, client, {new: true}, function(err){
                 if (err){return next(err);}
                 res.redirect("/clients");
             });
