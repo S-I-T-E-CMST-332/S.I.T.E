@@ -108,7 +108,7 @@ exports.edit_user = [
   (req, res, next) =>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-      res.render('clinicians/clinician\ profile/edit/edit', {username: req.body.username, fname: req.body.fname, lname: req.body.lname, phone: req.body.phone, email: req.body.email});
+      res.render('clinicians/clinician\ profile/edit/edit', {username: req.body.username, fname: req.body.fname, lname: req.body.lname, phone: req.body.phone, email: req.body.email, errors: errors.array()});
       return;
     }
     if(req.body.password == ''){
