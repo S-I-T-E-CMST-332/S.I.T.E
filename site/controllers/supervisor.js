@@ -27,7 +27,6 @@ exports.get_clinician_profile = function(req, res, next){
   account.findById(req.params.clinician_id)
     .exec(function(err, clinician){
       if(err){return next(err);}
-      req.session.clinician_id = req.params.clinician_id;
       res.render('clinicians/clinician\ profile/profile', {clinician: clinician});
     });
 }
@@ -105,23 +104,46 @@ exports.edit_user = [
   check('lname').trim().escape(),
   check('phone').trim().escape(),
   check('email').trim().escape(),
+  check('password').trim().escape(),
   (req, res, next) =>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-      res.render('clinicians/clinician\ profile/edit/edit', {errors: errors.array()});
+      console.log(errors);
+      return;
     }
-    let newUser = new account({
-      username: req.body.username,
-      password: req.body.password == null ? account.findById(req.params.clinician_id).password : check(req.body.password).trim().escape(),
-      fname: req.body.fname,
-      lname: req.body.lname,
-      phone: req.body.phone,
-      email: req.body.email
-    });
-    account.findByIdAndUpdate(req.session.clinician_id, newUser, function(err){
-      if (err){return next(err);}
-      res.redirect('/clinicians');
-    });
+    if(req.body.password == ''){
+      let newUser = new account({
+        _id: req.params.clinician_id,
+        user_id: req.session.user_id,
+        supervisor_id: req.session.supervisor_id,
+        username: req.body.username,
+        password: account.findById(req.params.clinician_id).password,
+        fname: req.body.fname,
+        lname: req.body.lname,
+        phone: req.body.phone,
+        email: req.body.email
+      });
+      account.findByIdAndUpdate(req.params.clinician_id, newUser, {new: true}, function(err){
+        if (err){return next(err);}
+        res.redirect('/clinicians');
+      });
+    }else{
+      let newUser = new account({
+        _id: req.params.clinician_id,
+        user_id: req.session.user_id,
+        supervisor_id: req.session.supervisor_id,
+        username: req.body.username,
+        password: bcrypt.hashSync(req.body.password, salt),
+        fname: req.body.fname,
+        lname: req.body.lname,
+        phone: req.body.phone,
+        email: req.body.email
+      });
+      account.findByIdAndUpdate(req.params.clinician_id, newUser, {new: true}, function(err){
+        if (err){return next(err);}
+        res.redirect('/clinicians');
+      });
+    }
   }
 ];
 
