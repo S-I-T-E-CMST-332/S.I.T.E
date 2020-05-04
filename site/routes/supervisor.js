@@ -8,7 +8,7 @@ router.get('/clinicians', supervisor.get_clinicians);
 //GET add user
 router.get('/add-user', supervisor.get_add_user);
 //POST add user
-router.post('/add-user', supervisor.create_user);
+router.post('/add-user', supervisor.create_user, supervisor.get_clinicians);
 //GET clinician profile
 router.get('/clinicians/:clinician_id', supervisor.get_clinician_profile);
 //GET edit profile

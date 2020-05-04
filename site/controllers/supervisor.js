@@ -6,6 +6,7 @@ let saltRounds = 10;
 let uniqid = require('uniqid');
 let salt = bcrypt.genSaltSync(saltRounds);
 let session = require('express-session');
+let async = require('async');
 
 exports.get_clinicians = function(req, res, next){
   account.find({'flag':false})
@@ -43,9 +44,13 @@ exports.get_delete_clinician = function(req, res, next){
   account.findById(req.params.clinician_id)
     .exec(function(err, clinician){
       if(err){return next(err);}
-      res.render('clinicians/clinician\ profile/delete/delete', {clinician: clinician});
-    })
-}
+      Client.find({"user_id": clinician.user_id})
+        .exec(function(err, client){
+          if(err){return next(err);}
+          res.render('clinicians/clinician\ profile/delete/delete', {clients: client, clinician: clinician});
+        });
+    });
+  }
 
 exports.create_user = [
   check('username').isLength({min: 1}).withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),
@@ -87,7 +92,7 @@ exports.create_user = [
         });
       newUser.save(function (err){
         if (err){return next(err); }
-        res.redirect('/clinicians');
+        next();
       });
     }
   }
@@ -148,22 +153,20 @@ exports.edit_user = [
 ];
 
 exports.delete_clinician = function(req, res, next){
-  async.parallel({
-    clinician: function(callback){
-      account.findById(req.body.clinician_id).exec(callback);
-    },
-    clients: function(callback){
-      Client.find({'user_id': req.body.clinician_id}).exec(callback);
-    },
-  }, function(err, results){
-    if(err){return next(err);}
-    if(results.clients > 0){
-      res.render("clinicians/clinician\ profile/delete/delete", {error: "This person has clients. Please delete them first"});
-    }else{
-      account.findByIdAndDelete(req.body.clinician_id, function deleteClinician(err){
-        if(err){return next(err);}
-        res.redirect('/clinicians');
+  account.findById(req.params.clinician_id)
+    .exec(function(err, clinaccount){
+      if(err){return next(err);}
+      Client.find({"user_id": clinaccount.user_id})
+        .exec(function(err, clients){
+          if(err){return next(err);}
+          if(clients.length > 0){
+            res.render("clinicians/clinician\ profile/delete/delete", {error: "This person has clients. Please delete them first"});
+          }else{
+            account.findByIdAndDelete(req.params.clinician_id, function deleteClinician(err){
+              if(err){return next(err);}
+              res.redirect('/clinicians');
+          });
+        }
+      });
     });
-    }
-  });
-}
+  }

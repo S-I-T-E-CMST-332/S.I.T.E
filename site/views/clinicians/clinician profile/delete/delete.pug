@@ -1,17 +1,14 @@
-<!-- this page is to delete a clinician AND ALL CLIENTS ATTATCHED -->
-
-extends layout
+extends ../../../layout
 
 block content
-  h1 #{title}:
-  if clinician_clients.length
+  if clients.length
     p #[strong You must delete the following clients before deleting this clinician:]
     div(style='margin-left:20px;margin-top:20px')
       h4 Clients
       dl
-      each client in clinician_clients
+      each client in clients
         dt 
-          a(href=client.url)
+          #{client.name}
 
   else
     p Do you really want to delete this Clinician?
