@@ -47,6 +47,7 @@ exports.get_delete_clinician = function(req, res, next){
       Client.find({"user_id": clinician.user_id})
         .exec(function(err, client){
           if(err){return next(err);}
+          console.log(client);
           res.render('clinicians/clinician\ profile/delete/delete', {clients: client, clinician: clinician});
         });
     });
