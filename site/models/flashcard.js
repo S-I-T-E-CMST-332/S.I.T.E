@@ -6,7 +6,9 @@ let Schema = mongoose.Schema;
 let FlashcardSchema = new Schema(
     {
         flashcard_id: {type: Number, required: true},
-        form_id: {type: Schema.Types.ObjectId, ref: 'form', required: true}
+        name: {type: String, required: true},
+        form_id: {type: Schema.Types.ObjectId, ref: 'form', required: true},
+        link: {type: String, required: true}//This needs to be the relative location of the image uploaded
     }
 );
 
