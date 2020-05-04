@@ -51,3 +51,19 @@ exports.logout = function(req, res, next) {
 exports.home = function(req, res){
   req.session.flag == true ? res.redirect('/clinicians') : res.redirect('/clients');
 }
+
+exports.is_clin = function(req, res, next){
+  if(req.session.flag == undefined){
+    res.redirect('/');
+  }else{
+    req.session.flag == true ? res.redirect('/clinicians') : next();
+  }
+}
+
+exports.is_auth = function(req, res, next){
+  if(req.session.flag == undefined){
+    res.redirect('/');
+  }else{
+    req.session.flag == true ? next() : res.redirect('/clients');
+  }
+}
