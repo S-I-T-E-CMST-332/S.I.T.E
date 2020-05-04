@@ -47,3 +47,7 @@ exports.logout = function(req, res, next) {
 	res.redirect('/');
   });
 }
+
+exports.home = function(req, res){
+  req.session.flag == true ? res.redirect('/clinicians') : res.redirect('/clients');
+}

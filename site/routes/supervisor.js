@@ -21,5 +21,7 @@ router.get('/clinicians/:clinician_id/delete', supervisor.get_delete_clinician);
 router.post('/clinicians/:clinician_id/delete', supervisor.delete_clinician);
 //GET logout
 router.get('/logout', auth.logout);
+//GET Home
+router.get('/home', auth.home);
 
 module.exports = router;
