@@ -3,15 +3,18 @@ let correct = document.getElementById("correct");
 let incorrect = document.getElementById("incorrect");
 let kindOf = document.getElementById("kindOf");
 
-correct.addEventListener('click', function(){
+correct.addEventListener('click', function(e){
+    e.preventDefault();
     xhttp.open('POST', '/correct');
     xhttp.send();
 });
-incorrect.addEventListener('click', function(){
+incorrect.addEventListener('click', function(e){
+    e.preventDefault();
     xhttp.open('POST', '/incorrect');
     xhttp.send();
 });
-kindOf.addEventListener('click', function(){
+kindOf.addEventListener('click', function(e){
+    e.preventDefault();
     xhttp.open('POST', '/kindof');
     xhttp.send();
 });

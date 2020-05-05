@@ -26,6 +26,7 @@ exports.correct = function(req, res, next){
     session.findByIdAndUpdate(req.session.session_id, Session, function(err){
         if(err){return next(err);}
     });
+    next();
 }
 
 exports.incorrect = function(req, res, next){
@@ -50,6 +51,7 @@ exports.incorrect = function(req, res, next){
     session.findByIdAndUpdate(req.session.session_id, Session, function(err){
         if(err){return next(err);}
     });
+    next();
 }
 
 exports.kindof = function(req, res, next){
@@ -60,7 +62,7 @@ exports.kindof = function(req, res, next){
         kinda: currentLetter.kinda++
     });
     let Form = new form({
-        kinda:currentForm.kinda++
+        kinda: currentForm.kinda++
     });
     let Session = new session({
         kinda: currentSess.kinda++
@@ -74,6 +76,7 @@ exports.kindof = function(req, res, next){
     session.findByIdAndUpdate(req.session.session_id, Session, function(err){
         if(err){return next(err);}
     });
+    next();
 }
 
 exports.start_session = function(req, res){
