@@ -1,4 +1,5 @@
 let mongoose = require("mongoose");
+let moment = require('moment');
 
 let Schema = mongoose.Schema;
 
@@ -26,6 +27,12 @@ ClientSchema
 .virtual('lastname')
 .get(function(){
   return this.lname;
+});
+
+ClientSchema
+.virtual('formdate')
+.get(function(){
+  return moment(this.dob).utc().format('YYYY-MM-DD');
 });
 
 module.exports = mongoose.model('client', ClientSchema);
