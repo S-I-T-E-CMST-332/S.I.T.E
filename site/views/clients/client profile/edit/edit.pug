@@ -16,7 +16,7 @@ block content
             input#email.form-control(type='text', value=client.lname name='lname')
           div.form-group
             label(for='dob') Date of Birth:
-            input#favoriteBook.form-control(type='date', value=client.dob name='dob')
+            input#favoriteBook.form-control(type='date', value=client.formdate name='dob')
           button.btn.btn-primary(type='submit') Update
         if errors
           ul
