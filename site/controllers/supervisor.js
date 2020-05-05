@@ -51,7 +51,11 @@ exports.get_delete_clinician = function(req, res, next){
           res.render('clinicians/clinician\ profile/delete/delete', {clients: client, clinician: clinician});
         });
     });
-  }
+}
+
+exports.get_progress_overview = function(req, res, next){
+  res.render('clients/client\ profile/progress/overview');
+}
 
 exports.create_user = [
   check('username').isLength({min: 1}).withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),

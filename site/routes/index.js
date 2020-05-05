@@ -36,9 +36,6 @@ router.get('/clients/:client_id/letters/:sound_id/:card_id', clinician.get_card)
 router.post('/correct', client.correct);
 router.post('/incorrect', client.incorrect);
 router.post('/kindof', client.kindof);
-//GET progress
-router.get('/clients/:client_id/progress-overview', clinician.get_progress_overview);
 //GET progress (sessions)
-router.get('/clients/:client_id/progress/progress-overview/sessions', clinician.get_progress_sessions);
 
 module.exports = router;

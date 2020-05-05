@@ -23,5 +23,7 @@ router.post('/clinicians/:clinician_id/delete', supervisor.delete_clinician);
 router.get('/logout', auth.logout);
 //GET Home
 router.get('/home', auth.home);
+//GET progress
+router.get('/clients/:client_id/progress-overview', supervisor.get_progress_overview);
 
 module.exports = router;
