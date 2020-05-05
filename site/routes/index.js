@@ -31,7 +31,7 @@ router.get('/clients/:client_id/letters', clinician.get_session);
 //GET sounds
 router.get('/clients/:client_id/letters/sounds', clinician.get_sounds);
 //GET Start Session
-router.get('/clients/:client_id/letters/:sound_id/:card_id', clinician.get_card);
+router.get('/clients/:client_id/letters/:sound_id/', client.get_card);
 //POST Correct, Incorrect, and Kindof. Only to be accessed through ajax
 router.post('/correct', client.correct);
 router.post('/incorrect', client.incorrect);

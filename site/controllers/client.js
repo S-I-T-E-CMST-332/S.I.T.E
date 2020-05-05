@@ -1,6 +1,7 @@
 const session = require('../models/session');
 const letter = require('../models/letter');
 const form = require('../models/form');
+const flashcard = require('../models/flashcard');
 
 let uniqid = require('uniqid');
 
@@ -93,4 +94,12 @@ exports.start_session = function(req, res){
     });
     req.session.session_id = Session.session_id;
     next();
+}
+
+exports.get_card = function(req, res){
+    flashcard.find({'form_id': req.params.sound_id})//sound_id is the form like ending ar (sound_id is form id)
+        .exec(function(err, cards){
+            if(err){return next(err);}
+            res.render('/clients/:client_id/letters/:sound_id/', {flashcard: cards[Math.floor(Math.random()*cards.length)]});
+        });
 }
