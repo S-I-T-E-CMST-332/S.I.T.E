@@ -3,6 +3,7 @@ const session = require('express-session');
 const { check, validationResult } = require('express-validator');
 let uniqid = require('uniqid');
 let async = require('async');
+let moment = require('moment');
 
 exports.get_clients = function(req, res, next){
     Client.find()
@@ -60,7 +61,7 @@ exports.create_client = [
     check('dob').isLength({min:1}).withMessage("Please enter your client's dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
     check('fname').isLength({min: 1}).withMessage("Please enter your client's first name").isAlphanumeric().withMessage("No special characthers"),
     check('lname').isLength({min: 1}).withMessage("Please enter your client's last name").isAlphanumeric().withMessage("No special charachters"),
-    check('dob').toDate(),
+    check('dob').toDate().isISO8601(),
     check('fname').trim().escape(),
     check('lname').trim().escape(),
     (req, res, next) =>{
@@ -89,7 +90,7 @@ exports.edit_client = [
     check('dob').isLength({min:1}).withMessage("Please enter your client's dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
     check('fname').isLength({min: 1}).withMessage("Please enter your client's first name").isAlphanumeric().withMessage("No special characthers"),
     check('lname').isLength({min: 1}).withMessage("Please enter your client's last name").isAlphanumeric().withMessage("No special charachters"),
-    check('dob').toDate(),
+    check('dob').toDate().isISO8601(),
     check('fname').trim().escape(),
     check('lname').trim().escape(),
     (req, res, next) =>{
