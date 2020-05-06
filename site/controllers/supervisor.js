@@ -1,5 +1,9 @@
 let account = require('../models/users');
 let Client = require('../models/client');
+let letter = require('../models/letter');
+let form = require('../models/form');
+let flashcard = require('../models/flashcard');
+
 const { check, validationResult } = require('express-validator');
 let bcrypt = require('bcrypt');
 let saltRounds = 10;
@@ -7,6 +11,7 @@ let uniqid = require('uniqid');
 let salt = bcrypt.genSaltSync(saltRounds);
 let session = require('express-session');
 let async = require('async');
+let formidable = require('formidable');
 
 exports.get_clinicians = function(req, res, next){
   account.find({'flag':false})
@@ -14,6 +19,17 @@ exports.get_clinicians = function(req, res, next){
       if(err){return next(err);}
       res.render('clinicians/clinicians', {clinician_list:clinician_list});
     });
+}
+
+exports.get_add_flashcard = function(req, res){
+  letter.findById('r').exec(function(err, letter){
+    if(err){return next(err);}
+    form.find({'letter_id': letter.letter_id})
+      .exec(function(err, forms){
+        if(err){return next(err);}
+        res.render('clinicians/add-flashcard/add-flashcard', {letter: letter, forms: forms});
+      });
+  });
 }
 
 exports.get_add_user = function(req, res, next){
@@ -56,6 +72,32 @@ exports.get_delete_clinician = function(req, res, next){
 exports.get_progress_overview = function(req, res, next){
   res.render('clients/client\ profile/progress/overview');
 }
+
+exports.create_flashcard = [
+  check('name').isLength({min: 1}).withMessage('Please enter a name').isAlphanumeric().withMessage('Numbers and letters only').trim().escape(),
+  (req, res) =>{
+    flashcard.find({'name': req.body.name}).exec(function(err, flashcard){
+      if(err){return next(err);}
+      if(flashcard !== null){res.render('clincians/add-flashcard/add-flashcard', {error: "That name already exists", letter: req.body.letter, forms: req.body.forms})}
+    });
+    new formidable.IncomingForm().parse(req)
+      .on('fileBegin', (name, file) =>{
+        file.path = '/images/' + file.name;
+      })
+      .on('file', (name, file) =>{
+        let card = new flashcard({
+          flashcard_id: uniqid(),
+          name: file.name,
+          form_id: req.body.form_id,
+          link: file.path
+        });
+        card.save(function(err){
+          if(err){return next(err);}
+          res.render('/clinicians');
+        });
+      });
+  }
+]
 
 exports.create_user = [
   check('username').isLength({min: 1}).withMessage('Please enter your username').isAlphanumeric().withMessage('Must be alphanumeric'),
