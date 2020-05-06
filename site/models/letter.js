@@ -4,12 +4,18 @@ let Schema = mongoose.Schema;
 
 let LetterSchema = new Schema(
     {
-        letter_id: {type: Number, required: true},
+        letter_id: {type: String, required: true},
         session_id: {type: String, required: false},
         correct: {type: Number, required: false},
         incorrect: {type: Number, required: false},
         kinda: {type: Number, required: false}
     }
 );
+
+LetterSchema
+.virtual('name')
+.get(function(){
+  return this.letter_id;
+});
 
 module.exports = mongoose.model('letter', LetterSchema);

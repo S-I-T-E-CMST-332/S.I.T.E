@@ -21,13 +21,13 @@ exports.get_clinicians = function(req, res, next){
     });
 }
 
-exports.get_add_flashcard = function(req, res){
-  letter.findById('r').exec(function(err, letter){
+exports.get_add_flashcard = function(req, res, next){
+  letter.find({letter_id:'r'}).exec(function(err, letter){
     if(err){return next(err);}
     form.find({'letter_id': letter.letter_id})
       .exec(function(err, forms){
         if(err){return next(err);}
-        res.render('clinicians/add-flashcard/add-flashcard', {letter: letter, forms: forms});
+        res.render('clinicians/add-flashcard/add-flashcard', {letters: letter, forms: forms});
       });
   });
 }
