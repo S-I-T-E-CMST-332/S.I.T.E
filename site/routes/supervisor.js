@@ -10,9 +10,9 @@ router.get('/add-user', supervisor.get_add_user);
 //POST add user
 router.post('/add-user', supervisor.create_user, supervisor.get_clinicians);
 //GET add flashcard
-router.get('/add-letter', supervisor.get_add_flashcard);
+router.get('/add-flashcard', supervisor.get_add_flashcard);
 //POST add flashcard
-router.post('/add-letter', supervisor.create_flashcard);
+router.post('/add-flashcard', supervisor.create_flashcard);
 //GET clinician profile
 router.get('/clinicians/:clinician_id', supervisor.get_clinician_profile);
 //GET edit profile
