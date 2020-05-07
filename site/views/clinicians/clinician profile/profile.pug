@@ -1,15 +1,15 @@
 extends ../../layout.pug
 
 block content
+  .main.container
+    h1 Clinician: #{clinician.name}
 
-  h1 Clinician: #{clinician.name}
-  
-  div
+    div
 
-    p #[strong Phone:] #{clinician.phone}
-    p #[strong Email:] #{clinician.email}
+      p #[strong Phone:] #{clinician.phone} 
+      p #[strong Email:] #{clinician.email}
 
-    p
-    a(href='/clinicians/'+clinician._id+'/delete') Delete clinician
-    p
-    a(href='/clinicians/'+clinician._id+'/edit') Edit Clinician Info
+      p
+      a(href='/clinicians/'+clinician._id+'/delete') Delete clinician
+      p
+      a(href='/clinicians/'+clinician._id+'/edit') Edit Clinician Info

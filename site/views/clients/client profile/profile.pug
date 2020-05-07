@@ -1,18 +1,19 @@
 extends ../../layout.pug
 
 block content
+  .main.container
 
-  h1 Client: #{client.name}
-  
-  div
+    h1 Client: #{client.name}
+    
+    div
 
-  p #[strong DOB:] #{client.reportdate}
+    p #[strong DOB:] #{client.reportdate}
 
-    p
-    a(href='/clients/'+client._id+'/delete') Delete Client
-    p
-    a(href='/clients/'+client._id+'/edit') Update Client
-    p
-    a(href='/update') Reports
-    p
-    a(href='/clients/'+client._id+'/letters') Start Session
+      p
+      a(href='/clients/'+client._id+'/delete') Delete Client
+      p
+      a(href='/clients/'+client._id+'/edit') Update Client
+      p
+      a(href='/update') Reports
+      p
+      a(href='/clients/'+client._id+'/letters') Start Session

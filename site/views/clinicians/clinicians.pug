@@ -1,19 +1,23 @@
 extends ../layout.pug
 
 block content
-  button(onclick="window.location.href='/add-user/'", type='button', class='btn btn-primary btn-block') Add Clinician
-  button(onclick="window.location.href='/add-flashcard'", type='button', class='btn btn-primary btn-block') Add Flashcard
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
 
-  div(class="container", style="margin-top:30px")
-      div(class="row")
-          div(class="col-sm-8")
-      h2 Clinician List
+        div(class="container", style="margin-top:30px")
+            div(class="row")
+                div(class="col-sm-8")
+            h2 Clinician List
 
-  ul
-      - clinician_list.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
-      each clinician in clinician_list
-        li 
-          a(href='/clinicians/'+clinician._id) #{clinician.name} 
+        ul
+            - clinician_list.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+            each clinician in clinician_list
+              li 
+                a(href='/clinicians/'+clinician._id) #{clinician.name} 
 
-      else
-        li There are no Clinicians
+            else
+              li There are no Clinicians
+      .col-md-6.col-md-offset-3
+        button(onclick="window.location.href='/add-user/'", type='button', class='btn btn-primary btn-block') Add Clinician
+        button(onclick="window.location.href='/add-flashcard'", type='button', class='btn btn-primary btn-block') Add Flashcard

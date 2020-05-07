@@ -7,15 +7,15 @@ head
   script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js")
 block content
   .main.container
-  .row
-    .col-md-6.col-md-offset-3
-      img(src="/images/loginlogo.svg", width='360', height='180')
-      h1 Log In
-      form(method='POST')
-        div.form-group
-          label(for='username') Username
-          input.form-control(type='text' id='email' placeholder='username' name='username')
-        div.form-group
-          label(for='password') Password
-          input.form-control(type='password' id='password' placeholder='password' name='password')
-        button.btn.btn-primary(type='submit') Log in
+    .row
+      .col-md-6.col-md-offset-3
+        img(src="/images/loginlogo.svg", width='360', height='180')
+        h1 Log In
+        form(method='POST')
+          div.form-group
+            label(for='username') Username
+            input.form-control(type='text' id='email' placeholder='username' name='username')
+          div.form-group
+            label(for='password') Password
+            input.form-control(type='password' id='password' placeholder='password' name='password')
+          button.btn.btn-primary(type='submit') Log in
