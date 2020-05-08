@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 let FormSchema = new Schema(
     {
-        form_id: {type: Number, required: true},
+        form_id: {type: String, required: true},
         letter_id: {type: String, required: true},
         correct: {type: Number, required: false},
         incorrect: {type: Number, required: false},
