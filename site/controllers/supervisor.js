@@ -119,7 +119,10 @@ exports.create_user = [
     account.find({"username": req.body.username})
       .exec(function(err, user){
         if(err){return next(err);}
-        if(user !== null){res.render('clinicians/add-clinician/add_clinician', {error: "Username is taken", supervisors: req.body.supervisors})}
+        if(user.length !== 0){
+          res.render('clinicians/add-clinician/add_clinician', {error: "Username is taken", supervisors: req.body.supervisors});
+          console.log(user);
+        }
       });
     if (!errors.isEmpty()){
       res.render('clinicians/add-clinician/add_clinician', {errors: errors.array(), supervisors:req.body.supervisors});
@@ -128,7 +131,7 @@ exports.create_user = [
       let newUser = new account(
         {
           user_id: uniqid(),
-          supervisor_id: req.body.flag ? uniqid() : req.body.supervisor,//This ideally checks if the person being created is a supervisor. If they aren't, they should inherit the supervisor_id. Otherwise, it creates a supervisor id for them.
+          supervisor_id: req.body.flag ? uniqid() : req.body.supervisor,
           username: req.body.username,
           password: bcrypt.hashSync(req.body.password, salt),
           fname: req.body.fname,
