@@ -119,10 +119,10 @@ exports.create_user = [
     account.find({"username": req.body.username})
       .exec(function(err, user){
         if(err){return next(err);}
-        if(user !== null){res.render('clinicians/add-clinician/add_clinician'), {error: "Username is taken", supervisors: req.body.supervisors}}
+        if(user !== null){res.render('clinicians/add-clinician/add_clinician', {error: "Username is taken", supervisors: req.body.supervisors})}
       });
     if (!errors.isEmpty()){
-      res.render('clinicians/add-clinician/add_clinician', {errors: errors.array()});
+      res.render('clinicians/add-clinician/add_clinician', {errors: errors.array(), supervisors:req.body.supervisors});
       return;
     }else{
       let newUser = new account(
@@ -136,10 +136,11 @@ exports.create_user = [
           phone: req.body.phone,
           email: req.body.email,
           flag: req.body.flag ? true : false,//Checkbox for supervisor or not
-        });
+        }
+      );
       newUser.save(function (err){
-        if (err){return next(err); }
-        next();
+        if (err){return next(err);}
+        res.redirect('/clinicians');
       });
     }
   }
