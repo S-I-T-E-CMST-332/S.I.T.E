@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 let uniqid = require('uniqid');
 let async = require('async');
 let moment = require('moment');
+let form = require('../models/form');
 
 exports.get_clients = function(req, res, next){
     Client.find()
@@ -42,11 +43,19 @@ exports.get_delete = function(req, res, next){
 }
 
 exports.get_session = function(req, res, next){
-    res.render('clients/client\ profile/session/letter');
+    Client.findById(req.params.client_id)
+        .exec(function(err, client){
+            if(err){return next(err);}
+            res.render('clients/client\ profile/session/letter', {client: client});
+        });
 }
 
 exports.get_sounds = function(req, res, next){
-    res.render('clients/client\ profile/session/sounds/sounds');
+    req.session.letter_id = 'r';
+    form.find({letter_id: req.session.letter_id})
+        .exec(function(err, forms){
+            res.render('clients/client\ profile/session/sounds/sounds', {form: forms});
+        });
 }
 
 exports.get_card = function(req, res, next){

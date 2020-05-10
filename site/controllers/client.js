@@ -91,8 +91,8 @@ exports.start_session = function(req, res){
     });
     Session.save(function(err){
         if(err){return next(err);}
+        req.session.session_id = Session.session_id;
     });
-    req.session.session_id = Session.session_id;
     next();
 }
 
@@ -100,6 +100,6 @@ exports.get_card = function(req, res, next){
     flashcard.find({'form_id': req.params.sound_id})//sound_id is the form like ending ar (sound_id is form id)
         .exec(function(err, cards){
             if(err){return next(err);}
-            res.render('/clients/:client_id/letters/:sound_id/', {flashcard: cards[Math.floor(Math.random()*cards.length)]});
+            res.render('/clients/letters/session/sounds/flashcard/flashcard', {flashcard: cards[Math.floor(Math.random()*cards.length)]});
         });//Should work. As long as the link is defined correctly, we can call flashcard.link
 }
