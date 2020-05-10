@@ -19,7 +19,9 @@ exports.login = [
     user.find({'username': req.body.username})
       .exec(function(err, user){
         if(err){return next(err);}
-        if(user == null){res.render('index', {error: "User does not exist"});}
+        if(user.length == 0){
+          res.render('index', {error: "User does not exist"});
+        }else{
         bcrypt.compare(req.body.password, user[0].password, function(err, succ, next){
           if(err){return next(err);}
           if(succ){
@@ -38,6 +40,7 @@ exports.login = [
             res.render('index', {error:'password is incorrect'});
           }
       });
+    }
     }
   )}
 ]
