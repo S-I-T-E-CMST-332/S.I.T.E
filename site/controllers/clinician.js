@@ -5,6 +5,8 @@ let uniqid = require('uniqid');
 let async = require('async');
 let moment = require('moment');
 let form = require('../models/form');
+let Session = require('../models/session');
+let letter = require('../models/letter');
 
 exports.get_clients = function(req, res, next){
     Client.find()
@@ -40,6 +42,23 @@ exports.get_delete = function(req, res, next){
             if(err){return next(err);}
             res.render('clients/client\ profile/delete/delete', {client: client});
         });
+}
+
+exports.get_report = function(req, res){
+    Session.find({client_id: req.params.client_id}).exec(function(err, sessions){
+        if(err){return next(err);}
+        res.render('clients/client\ profile/report/report', {sessions: sessions});
+    });
+}
+
+exports.get_details = function(req, res){
+    letter.find({session_id: req.params.session_id}).exec(function(err, letter){
+        if(err){return next(err);}
+        form.find({letter_id: letter[0].letter_id}).exec(function(err, form){
+            if(err){return next(err);}
+            res.render('clients/client\ profile/report/details/details', {letter: letter, form: form});
+        });
+    });
 }
 
 exports.get_session = function(req, res, next){
