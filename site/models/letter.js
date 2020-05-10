@@ -18,4 +18,10 @@ LetterSchema
   return this.letter_id;
 });
 
+LetterSchema
+.virtual('total')
+.get(function(){
+  return this.correct + this.incorrect + this.kinda;
+});
+
 module.exports = mongoose.model('letter', LetterSchema);

@@ -17,4 +17,10 @@ SessionSchema
   return this.date;
 });
 
+SessionSchema
+.virtual('total')
+.get(function(){
+  return this.correct + this.incorrect + this.kinda;
+});
+
 module.exports = mongoose.model('session', SessionSchema);
