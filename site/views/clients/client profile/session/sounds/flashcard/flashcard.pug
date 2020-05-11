@@ -1,17 +1,18 @@
 extends ../../../../../layout.pug
-  script(src="/javascripts/ajax.js")
+
 block content
 
   div(class="container", style="margin-top:30px")
     div(class="row")
       div(class="col-sm-8")
-        h2 #{client.fname}
+        
         div(class="fakeimg") R Image
 
       div(class="col-sm-4")
-          img(src="/images/greencheckmark.svg", width='90', height='90')
-          img(src="/images/greyNotEqual.svg", width='90', height='90')
-          img(src="/images/redX.svg", width='90', height='90')
+          img(src="/images/greencheckmark.svg", id='correct', width='90', height='90')
+          img(src="/images/greyNotEqual.svg", id='kindOf', width='90', height='90')
+          img(src="/images/redX.svg", id='incorrect', width='90', height='90')
+  script(src="/javascripts/ajax.js")
 	
   footer
     a(href="https://www.freepik.com/free-photos-vectors") Designs found on - www.freepik.com
