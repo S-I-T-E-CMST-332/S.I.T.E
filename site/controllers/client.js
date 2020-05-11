@@ -7,21 +7,24 @@ let uniqid = require('uniqid');
 
 exports.correct = function(req, res, next){
     let currentSess = session.findById(req.session.session_id);
-    let currentLetter = session.findById(req.session.letter_id);
-    let currentForm = form.findById(req.session.form_id);
+    let currentLetter = letter.find({"letter_id": req.session.letter_id});
+    let currentForm = form.find({"form_id": currentLetter[0].form_id});
     let Letter = new letter({
-        correct: currentLetter.correct++
+        letter_id: currentLetter[0].letter_id,
+        correct: currentLetter[0].correct++
     });
     let Form = new form({
-        correct:currentForm.correct++
+        form_id: currentForm[0].form_id,
+        correct: currentForm[0].correct++
     });
     let Session = new session({
+        session_id: currentSess.session_id,
         correct: currentSess.correct++
     });
-    letter.findByIdAndUpdate(req.session.letter_id, Letter, function(err){
+    letter.findByIdAndUpdate(currentLetter[0]._id, Letter, function(err){
         if(err){return next(err);}
     }),
-    form.findByIdAndUpdate(req.session.form_id, Form, function(err){
+    form.findByIdAndUpdate(currentForm[0]._id, Form, function(err){
         if(err){return next(err);}
     }),
     session.findByIdAndUpdate(req.session.session_id, Session, function(err){
@@ -32,21 +35,24 @@ exports.correct = function(req, res, next){
 
 exports.incorrect = function(req, res, next){
     let currentSess = session.findById(req.session.session_id);
-    let currentLetter = session.findById(req.session.letter_id);
-    let currentForm = form.findById(req.session.form_id);
+    let currentLetter = letter.find({"session_id": req.session.letter_id});
+    let currentForm = form.find({"letter_id": currentLetter[0].letter_id});
     let Letter = new letter({
-        incorrect: currentLetter.incorrect++
+        letter_id: currentLetter[0].letter_id,
+        incorrect: currentLetter[0].incorrect++
     });
     let Form = new form({
-        incorrect:currentForm.incorrect++
+        form_id: currentForm[0].form_id,
+        incorrect: currentForm[0].incorrect++
     });
     let Session = new session({
-        incorrect:currentSess.incorrect++
+        session_id: currentSess.session_id,
+        incorrect: currentSess.incorrect++
     });
-    letter.findByIdAndUpdate(req.session.letter_id, Letter, function(err){
+    letter.findByIdAndUpdate(currentLetter[0]._id, Letter, function(err){
         if(err){return next(err);}
     }),
-    form.findByIdAndUpdate(req.session.form_id, Form, function(err){
+    form.findByIdAndUpdate(currentForm[0]._id, Form, function(err){
         if(err){return next(err);}
     }),
     session.findByIdAndUpdate(req.session.session_id, Session, function(err){
@@ -57,21 +63,24 @@ exports.incorrect = function(req, res, next){
 
 exports.kindof = function(req, res, next){
     let currentSess = session.findById(req.session.session_id);
-    let currentLetter = session.findById(req.session.letter_id);
-    let currentForm = form.findById(req.session.form_id);
+    let currentLetter = letter.find({"letter_id": req.session.letter_id});
+    let currentForm = form.find({"form_id": currentForm[0].form_id});
     let Letter = new letter({
-        kinda: currentLetter.kinda++
+        letter_id: currentLetter[0].letter_id,
+        kinda: currentLetter[0].kinda++
     });
     let Form = new form({
-        kinda: currentForm.kinda++
+        form_id: currentForm[0].form_id,
+        kinda: currentForm[0].kinda++
     });
     let Session = new session({
+        session_id: currentSess.session_id,
         kinda: currentSess.kinda++
     });
-    letter.findByIdAndUpdate(req.session.letter_id, Letter, function(err){
+    letter.findByIdAndUpdate(currentLetter[0]._id, Letter, function(err){
         if(err){return next(err);}
     }),
-    form.findByIdAndUpdate(req.session.form_id, Form, function(err){
+    form.findByIdAndUpdate(currentForm[0]._id, Form, function(err){
         if(err){return next(err);}
     }),
     session.findByIdAndUpdate(req.session.session_id, Session, function(err){
@@ -92,6 +101,7 @@ exports.start_session = function(req, res){
     Session.save(function(err){
         if(err){return next(err);}
         req.session.session_id = Session.session_id;
+        req.session.client_id = req.params.client_id;
     });
     next();
 }
