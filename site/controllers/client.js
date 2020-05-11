@@ -109,5 +109,5 @@ exports.send_card = function(req, res, next){
         .exec(function(err, cards){
             if(err){return next(err);}
             res.send({flashcard: cards[Math.floor(Math.random()*cards.length)]});
-        })
+        });//If send simply sends the data to the page, then I can have the ajax interpret it? Ask Troy
 }
