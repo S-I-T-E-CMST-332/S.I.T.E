@@ -103,3 +103,11 @@ exports.get_card = function(req, res, next){
             res.render('/clients/letters/session/sounds/flashcard/flashcard', {flashcard: cards[Math.floor(Math.random()*cards.length)]});
         });//Should work. As long as the link is defined correctly, we can call flashcard.link
 }
+
+exports.send_card = function(req, res, next){
+    flashcard.find({'form_id': req.params.sound_id})
+        .exec(function(err, cards){
+            if(err){return next(err);}
+            res.send({flashcard: cards[Math.floor(Math.random()*cards.length)]});
+        })
+}
