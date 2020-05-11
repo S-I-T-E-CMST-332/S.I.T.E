@@ -71,7 +71,7 @@ exports.get_session = function(req, res, next){
 
 exports.get_sounds = function(req, res, next){
     req.session.letter_id = 'r';
-    form.find({letter_id: req.session.letter_id})
+    form.find({"letter_id": req.session.letter_id})
         .exec(function(err, forms){
             res.render('clients/client\ profile/session/sounds/sounds', {form: forms});
         });
