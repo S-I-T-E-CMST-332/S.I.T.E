@@ -12,6 +12,7 @@ let salt = bcrypt.genSaltSync(saltRounds);
 let session = require('express-session');
 let async = require('async');
 let formidable = require('formidable');
+let fs = require('fs');
 
 exports.get_clinicians = function(req, res, next){
   account.find({'flag':false})
@@ -79,24 +80,26 @@ exports.create_flashcard = [
     flashcard.find({'name': req.body.name}).exec(function(err, flashcard){
       if(err){return next(err);}
       if(flashcard.length !=0){res.render('clinicians/add-flashcard/add-flashcard', {error: "That name already exists", letter: req.body.letter, forms: req.body.forms})}
-    });console.log("Made it here")
-    new formidable.IncomingForm().parse(req)
-      .on('fileBegin', (name, file) =>{
-        file.path = '/images/' + file.name;
-        console.log("File Begin")
-      })
-      .on('file', (name, file) =>{
+    });
+    console.log("Made it here")
+    let formid = new formidable.IncomingForm();
+    formid.parse(req, function(err, fields, files){
+      let oldpath = files.filename.path;
+      let newpath = 'images/' + files.filename.path;
+      fs.rename(oldpath, newpath, function(err){
+        if(err){return next(err);}
         let card = new flashcard({
           flashcard_id: uniqid(),
-          name: file.name,
+          name: req.body.name,
           form_id: req.body.form_id,
-          link: file.path
+          link: newpath
         });
         card.save(function(err){
-          if(err){return next(err);}consols.log("Success")
-          res.render('/clinicians');
+          if(err){return next(err);}
+          res.redirect('/clinicians');
         });
       });
+    });
   }
 ]
 
