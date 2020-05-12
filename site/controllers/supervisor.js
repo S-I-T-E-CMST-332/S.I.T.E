@@ -23,9 +23,9 @@ exports.get_clinicians = function(req, res, next){
 }
 
 exports.get_add_flashcard = function(req, res, next){
-  letter.find({letter_id:'r'}).exec(function(err, letter){
+  letter.find({'letter_id':'r'}).exec(function(err, letter){
     if(err){return next(err);}
-    form.find({'letter_id': letter.letter_id})
+    form.find({'letter_id': letter[0].letter_id})
       .exec(function(err, forms){
         if(err){return next(err);}
         res.render('clinicians/add-flashcard/add-flashcard', {letters: letter, forms: forms});
@@ -81,13 +81,12 @@ exports.create_flashcard = [
       if(err){return next(err);}
       if(flashcard.length !=0){res.render('clinicians/add-flashcard/add-flashcard', {error: "That name already exists", letter: req.body.letter, forms: req.body.forms})}
     });
-    console.log("Made it here")
-    let formid = new formidable.IncomingForm();
+    let formid = new formidable.IncomingForm();console.log("Made it here")
     formid.parse(req, function(err, fields, files){
+      console.log(files)
       let oldpath = files.filename.path;
       let newpath = 'images/' + files.filename.path;
       fs.rename(oldpath, newpath, function(err){
-        if(err){return next(err);}
         let card = new flashcard({
           flashcard_id: uniqid(),
           name: req.body.name,
@@ -95,7 +94,6 @@ exports.create_flashcard = [
           link: newpath
         });
         card.save(function(err){
-          if(err){return next(err);}
           res.redirect('/clinicians');
         });
       });
