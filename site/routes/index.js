@@ -38,7 +38,5 @@ router.post('/incorrect', client.incorrect);
 router.post('/kindof', client.kindof);
 //GET progress (sessions)
 router.get('/client/:client_id/reports', clinician.get_report);
-//GET details
-router.get('/client/:session_id/reports/details', clinician.get_details);
 
 module.exports = router;
