@@ -78,11 +78,12 @@ exports.create_flashcard = [
   (req, res) =>{
     flashcard.find({'name': req.body.name}).exec(function(err, flashcard){
       if(err){return next(err);}
-      if(flashcard !== null){res.render('clincians/add-flashcard/add-flashcard', {error: "That name already exists", letter: req.body.letter, forms: req.body.forms})}
-    });
+      if(flashcard.length !=0){res.render('clinicians/add-flashcard/add-flashcard', {error: "That name already exists", letter: req.body.letter, forms: req.body.forms})}
+    });console.log("Made it here")
     new formidable.IncomingForm().parse(req)
       .on('fileBegin', (name, file) =>{
         file.path = '/images/' + file.name;
+        console.log("File Begin")
       })
       .on('file', (name, file) =>{
         let card = new flashcard({
@@ -92,7 +93,7 @@ exports.create_flashcard = [
           link: file.path
         });
         card.save(function(err){
-          if(err){return next(err);}
+          if(err){return next(err);}consols.log("Success")
           res.render('/clinicians');
         });
       });
