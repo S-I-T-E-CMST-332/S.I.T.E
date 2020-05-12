@@ -45,18 +45,14 @@ exports.get_delete = function(req, res, next){
 }
 
 exports.get_report = function(req, res){
-    Session.find({client_id: req.params.client_id}).exec(function(err, sessions){
+    Session.find({"client_id": req.params.client_id}).exec(function(err, sessions){
         if(err){return next(err);}
-        res.render('clients/client\ profile/report/report', {sessions: sessions});
-    });
-}
-
-exports.get_details = function(req, res){
-    letter.find({session_id: req.params.session_id}).exec(function(err, letter){
-        if(err){return next(err);}
-        form.find({letter_id: letter[0].letter_id}).exec(function(err, form){
+        letter.find({"session_id": req.params.session_id}).exec(function(err, letter){
             if(err){return next(err);}
-            res.render('clients/client\ profile/report/details/details', {letter: letter, form: form});
+            form.find({"letter_id": letter[0].letter_id}).exec(function(err, form){
+                if(err){return next(err);}
+                res.render('clients/client\ profile/report/details/details', {letter: letter, form: form, session: sessions});
+            });
         });
     });
 }
