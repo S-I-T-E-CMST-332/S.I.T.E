@@ -38,7 +38,7 @@ ClientSchema
 ClientSchema
 .virtual('reportdate')
 .get(function(){
-  return moment(this.dob).utc().format('DD-MM-YYYY');
+  return moment(this.dob).utc().format('MM-DD-YYYY');
 });
 
 module.exports = mongoose.model('client', ClientSchema);
