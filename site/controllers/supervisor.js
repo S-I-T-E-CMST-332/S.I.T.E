@@ -87,7 +87,7 @@ exports.create_flashcard = [
         res.render('clinicians/add-flashcard/add-flashcard', {error: "Unsupported filetype", letter: req.body.letter, forms: req.body.forms});
       }
       let oldpath = files.filename.path;
-      let newpath = 'public\\images\\' + fields.name + '.' + files.filename.type.split('/').pop();
+      let newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
       console.log(newpath);
       fs.rename(oldpath, newpath, function(err){
         let card = new flashcard({
