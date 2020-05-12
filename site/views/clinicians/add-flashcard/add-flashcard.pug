@@ -18,4 +18,9 @@ block content
                 select(name='letter')
                     for letter in letters
                         option(value=letter.letter_id) #{letter.name}
+            .form-group
+                label(for='type') Letter Form
+                select(name='form_id')
+                  for form in forms
+                      option(value=form.form_id) #{form.name}
             button.btn.btn-primary(type='submit') Create
