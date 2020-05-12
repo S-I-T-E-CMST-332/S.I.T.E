@@ -12,4 +12,10 @@ let FormSchema = new Schema(
     }
 );
 
+FormSchema
+.virtual('name')
+.get(function(){
+    return this.form_id;
+});
+
 module.exports = mongoose.model('form', FormSchema);
