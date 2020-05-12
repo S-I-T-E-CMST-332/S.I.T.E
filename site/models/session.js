@@ -1,4 +1,5 @@
 let mongoose = require("mongoose");
+let moment = require('moment');
 
 let Schema = mongoose.Schema;
 
@@ -14,7 +15,7 @@ let SessionSchema = new Schema({
 SessionSchema
 .virtual('day')
 .get(function(){
-  return this.date;
+  return moment(this.date).utc().format('MM-DD-YYYY');
 });
 
 SessionSchema
