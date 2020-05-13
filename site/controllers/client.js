@@ -3,6 +3,7 @@ const letter = require('../models/letter');
 const form = require('../models/form');
 const flashcard = require('../models/flashcard');
 const formsession = require('../models/form_session');
+let client = require('../models/client');
 
 let uniqid = require('uniqid');
 
@@ -14,7 +15,7 @@ exports.correct = function(req, res, next){
         letter_id: currentLetter[0].letter_id,
         correct: currentLetter[0].correct++
     });
-    let Form = new form({
+    let Form = new formsession({
         form_id: currentFormSess[0].form_id,
         correct: currentFormSess[0].correct++
     });
@@ -42,7 +43,7 @@ exports.incorrect = function(req, res, next){
         letter_id: currentLetter[0].letter_id,
         incorrect: currentLetter[0].incorrect++
     });
-    let Form = new form({
+    let Form = new formsession({
         form_id: currentFormSess[0].form_id,
         incorrect: currentFormSess[0].incorrect++
     });
@@ -70,7 +71,7 @@ exports.kindof = function(req, res, next){
         letter_id: currentLetter[0].letter_id,
         kinda: currentLetter[0].kinda++
     });
-    let Form = new form({
+    let Form = new formsession({
         form_id: currentFormSess[0].form_id,
         kinda: currentFormSess[0].kinda++
     });
@@ -91,31 +92,34 @@ exports.kindof = function(req, res, next){
 }
 
 exports.start_session = function(req, res, next){
-    let Session = new session({
-        session_id: uniqid(),
-        client_id: req.params.client_id,
-        date: new Date(),//This needs to be momented
-        correct: 0,
-        incorrect: 0,
-        kinda: 0
-    });
-    Session.save(function(err){
+    client.findById(req.params.client_id).exec(function(err, client){
         if(err){return next(err);}
+        let Session = new session({
+            session_id: uniqid(),
+            client_id: client.client_id,
+            date: new Date(),//This needs to be momented
+            correct: 0,
+            incorrect: 0,
+            kinda: 0
+        });
+        Session.save(function(err){
+            if(err){return next(err);}
+        });
         req.session.session_id = Session.session_id;
         req.session.client_id = req.params.client_id;
+        next();
     });
-    next();
 }
 
 exports.create_form_session = function(req, res, next){
     let FormSession = new formsession({
-        form_id: req.params.form_id,
+        form_id: req.params.sound_id,
         session_id: req.session.session_id,
         correct: 0,
         incorrect: 0,
         kinda: 0
     });
-    FormSession.save(function(err, next){
+    FormSession.save(function(err){
         if(err){return next(err);}
         next();
     });
@@ -133,6 +137,6 @@ exports.send_card = function(req, res, next){
     flashcard.find({'form_id': req.params.sound_id})
         .exec(function(err, cards){
             if(err){return next(err);}
-            res.send({newImage: cards[Math.floor(Math.random()*cards.length)].link});
-        });//If send simply sends the data to the page, then I can have the ajax interpret it? Ask Troy
+            return({newImage: cards[Math.floor(Math.random()*cards.length)].link});
+        });//Try a return
 }
