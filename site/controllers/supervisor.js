@@ -76,26 +76,29 @@ exports.get_progress_overview = function(req, res, next){
 
 exports.create_flashcard = [
   check('name').isLength({min: 1}).withMessage('Please enter a name').isAlphanumeric().withMessage('Numbers and letters only').trim().escape(),
-  (req, res) =>{
+  (req, res, next) =>{
     let formid = new formidable.IncomingForm();
     formid.parse(req, function(err, fields, files){
       flashcard.find({'name': fields.name}).exec(function(err, flashcard){
         if(err){return next(err);}
-        if(flashcard.length !=0){res.render('clinicians/add-flashcard/add-flashcard', {error: "That name already exists", letter: req.body.letter, forms: req.body.forms})}
+        if(flashcard.length !=0){
+          res.render('clinicians/add-flashcard/add-flashcard', {error: "That name already exists", letter: req.body.letter, forms: req.body.forms});
+        }//This line goes if there is another with the name. continues though, and resends headers.
       });
       if(!files.filename.type.includes("image")){
         res.render('clinicians/add-flashcard/add-flashcard', {error: "Unsupported filetype", letter: req.body.letter, forms: req.body.forms});
       }
       let oldpath = files.filename.path;
-      let newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
+      let newpath;
+      files.filename.type.includes('svg') ? newpath = 'public\\images\\flashcards\\' + fields.name + '.svg': newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
       fs.rename(oldpath, newpath, function(err){
+        let splitpath = newpath.split('\\');
         let card = new flashcard({
           flashcard_id: uniqid(),
           name: fields.name,
           form_id: fields.form_id,
-          link: newpath
+          link: '\\' + splitpath[1] + '\\' + splitpath[2] + '\\' + splitpath[3]
         });
-        console.log(card);
         card.save(function(err){
           res.redirect('/clinicians');
         });
