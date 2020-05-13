@@ -4,30 +4,30 @@ let supervisor = require('../controllers/supervisor');
 let auth = require('../controllers/auth');
 
 //GET clinician list
-router.get('/clinicians', supervisor.get_clinicians);
+router.get('/clinicians', auth.is_auth, supervisor.get_clinicians);
 //GET add user
-router.get('/add-user', supervisor.get_add_user);
+router.get('/add-user', auth.is_auth, supervisor.get_add_user);
 //POST add user
-router.post('/add-user', supervisor.create_user);
+router.post('/add-user', auth.is_auth, supervisor.create_user);
 //GET add flashcard
-router.get('/add-flashcard', supervisor.get_add_flashcard);
+router.get('/add-flashcard', auth.is_auth, supervisor.get_add_flashcard);
 //POST add flashcard
-router.post('/add-flashcard', supervisor.create_flashcard);
+router.post('/add-flashcard', auth.is_auth, supervisor.create_flashcard);
 //GET clinician profile
-router.get('/clinicians/:clinician_id', supervisor.get_clinician_profile);
+router.get('/clinicians/:clinician_id', auth.is_auth, supervisor.get_clinician_profile);
 //GET edit profile
-router.get('/clinicians/:clinician_id/edit', supervisor.get_edit_clinician);
+router.get('/clinicians/:clinician_id/edit', auth.is_auth, supervisor.get_edit_clinician);
 //POST edit profile
-router.post('/clinicians/:clinician_id/edit', supervisor.edit_user);
+router.post('/clinicians/:clinician_id/edit', auth.is_auth, supervisor.edit_user);
 //GET delete profile
-router.get('/clinicians/:clinician_id/delete', supervisor.get_delete_clinician);
+router.get('/clinicians/:clinician_id/delete', auth.is_auth, supervisor.get_delete_clinician);
 //POST delete profile
-router.post('/clinicians/:clinician_id/delete', supervisor.delete_clinician);
+router.post('/clinicians/:clinician_id/delete', auth.is_auth, supervisor.delete_clinician);
 //GET logout
 router.get('/logout', auth.logout);
 //GET Home
 router.get('/home', auth.home);
 //GET progress
-router.get('/clients/:client_id/progress-overview', supervisor.get_progress_overview);
+router.get('/clients/:client_id/progress-overview', auth.is_auth, supervisor.get_progress_overview);
 
 module.exports = router;
