@@ -90,30 +90,29 @@ exports.create_flashcard = [
             form.find({'letter_id': letter[0].letter_id})
             .exec(function(err, forms){
                if(err){return next(err);}
-                 res.render('clinicians/add-flashcard/add-flashcard', {letters: letter, forms: forms});//Come back and pass an error once you have a sot on pug file
+                 res.render('clinicians/add-flashcard/add-flashcard', {error: "That flashcard name already exists", letters: letter, forms: forms});//Come back and pass an error once you have a sot on pug file
            });
           })
-        }else{//Needs else-if for bad filetypes to prevent error on previous ^^^^
-        if(!files.filename.type.includes("image")){
+        }else if(!files.filename.type.includes("image")){//Needs else-if for bad filetypes to prevent error on previous ^^^^
           res.render('clinicians/add-flashcard/add-flashcard', {error: "Unsupported filetype", letter: req.body.letter, forms: req.body.forms});
-        }
-        console.log("Outside second conditional");
-        let oldpath = files.filename.path;
-        let newpath;
-        files.filename.type.includes('svg') ? newpath = 'public\\images\\flashcards\\' + fields.name + '.svg': newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
-        fs.rename(oldpath, newpath, function(err){
-          let splitpath = newpath.split('\\');
-          let card = new flashcard({
-            flashcard_id: uniqid(),
-            name: fields.name,
-            form_id: fields.form_id,
-            link: '\\' + splitpath[1] + '\\' + splitpath[2] + '\\' + splitpath[3]
+        }else{
+          console.log("Outside second conditional");
+          let oldpath = files.filename.path;
+          let newpath;
+          files.filename.type.includes('svg') ? newpath = 'public\\images\\flashcards\\' + fields.name + '.svg': newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
+          fs.rename(oldpath, newpath, function(err){
+            let splitpath = newpath.split('\\');
+            let card = new flashcard({
+              flashcard_id: uniqid(),
+              name: fields.name,
+              form_id: fields.form_id,
+              link: '\\' + splitpath[1] + '\\' + splitpath[2] + '\\' + splitpath[3]
+            });
+            card.save(function(err){
+              console.log("Second redirect")
+              res.redirect('/clinicians');
+            });
           });
-          card.save(function(err){
-            console.log("Second redirect")
-            res.redirect('/clinicians');
-          });
-        });
       }
       });
     });
