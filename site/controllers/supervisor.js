@@ -88,7 +88,6 @@ exports.create_flashcard = [
       }
       let oldpath = files.filename.path;
       let newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
-      console.log(newpath);
       fs.rename(oldpath, newpath, function(err){
         let card = new flashcard({
           flashcard_id: uniqid(),
