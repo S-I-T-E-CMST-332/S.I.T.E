@@ -79,29 +79,40 @@ exports.create_flashcard = [
   (req, res, next) =>{
     let formid = new formidable.IncomingForm();
     formid.parse(req, function(err, fields, files){
-      flashcard.find({'name': fields.name}).exec(function(err, flashcard){
-        if(err){return next(err);}
-        if(flashcard.length !=0){
-          res.render('clinicians/add-flashcard/add-flashcard', {error: "That name already exists", letter: req.body.letter, forms: req.body.forms});
-        }//This line goes if there is another with the name. continues though, and resends headers.
-      });
-      if(!files.filename.type.includes("image")){
-        res.render('clinicians/add-flashcard/add-flashcard', {error: "Unsupported filetype", letter: req.body.letter, forms: req.body.forms});
+      async.parallel({
+        flashcard: function(callback){
+          flashcard.find({'name': fields.name}).exec(callback)
+        }
+      }, function(err, results){
+        if(results.flashcard.length != 0){
+          console.log('Found another flashcard');
+          form.find({'letter_id': 'r'})
+           .exec(function(err, forms){
+              if(err){return next(err);}
+                res.render('clinicians/add-flashcard/add-flashcard', {letters: fields.letter, forms: forms});//Come back and pass an error once you have a sot on pug file
+          });
+        }else{//Needs else-if for bad filetypes to prevent error on previous ^^^^
+        if(!files.filename.type.includes("image")){
+          res.render('clinicians/add-flashcard/add-flashcard', {error: "Unsupported filetype", letter: req.body.letter, forms: req.body.forms});
+        }
+        console.log("Outside second conditional");
+        let oldpath = files.filename.path;
+        let newpath;
+        files.filename.type.includes('svg') ? newpath = 'public\\images\\flashcards\\' + fields.name + '.svg': newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
+        fs.rename(oldpath, newpath, function(err){
+          let splitpath = newpath.split('\\');
+          let card = new flashcard({
+            flashcard_id: uniqid(),
+            name: fields.name,
+            form_id: fields.form_id,
+            link: '\\' + splitpath[1] + '\\' + splitpath[2] + '\\' + splitpath[3]
+          });
+          card.save(function(err){
+            console.log("Second redirect")
+            res.redirect('/clinicians');
+          });
+        });
       }
-      let oldpath = files.filename.path;
-      let newpath;
-      files.filename.type.includes('svg') ? newpath = 'public\\images\\flashcards\\' + fields.name + '.svg': newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
-      fs.rename(oldpath, newpath, function(err){
-        let splitpath = newpath.split('\\');
-        let card = new flashcard({
-          flashcard_id: uniqid(),
-          name: fields.name,
-          form_id: fields.form_id,
-          link: '\\' + splitpath[1] + '\\' + splitpath[2] + '\\' + splitpath[3]
-        });
-        card.save(function(err){
-          res.redirect('/clinicians');
-        });
       });
     });
   }
