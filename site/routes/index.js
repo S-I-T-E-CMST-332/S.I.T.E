@@ -33,9 +33,9 @@ router.get('/clients/letters/sounds', auth.is_clin, clinician.get_sounds);
 //GET Start Session
 router.get('/clients/letters/session/:sound_id', auth.is_clin, client.get_card);
 //POST Correct, Incorrect, and Kindof. Only to be accessed through ajax
-router.post('/correct', auth.is_clin, client.correct);
-router.post('/incorrect', auth.is_clin, client.incorrect);
-router.post('/kindof', auth.is_clin, client.kindof);
+router.post('/correct', auth.is_clin, client.correct, client.send_card);
+router.post('/incorrect', auth.is_clin, client.incorrect, client.send_card);
+router.post('/kindof', auth.is_clin, client.kindof, client.send_card);
 //GET progress (sessions)
 router.get('/client/:client_id/reports', auth.is_clin, clinician.get_report);
 
