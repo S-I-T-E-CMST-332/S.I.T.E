@@ -49,7 +49,7 @@ exports.get_report = function(req, res, next){
     Session.find({"client_id": req.params.client_id}).exec(function(err, sessions){
         if(err){return next(err);}
         res.render('clients/client\ profile/report/report', {sessions: sessions});
-})
+    });
 }
 
 exports.get_details = function(req, res, next){
