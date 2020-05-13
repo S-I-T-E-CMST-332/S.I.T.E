@@ -27,11 +27,11 @@ router.get('/clients/:client_id/delete', auth.is_clin, clinician.get_delete);
 //POST delete client
 router.post('/clients/:client_id/delete', auth.is_clin, clinician.delete_client);
 //GET letter (Start of a Session)
-router.get('/clients/:client_id/letters', auth.is_clin, clinician.get_session);
+router.get('/clients/:client_id/letters', auth.is_clin, client.start_session, clinician.get_session);
 //GET sounds
 router.get('/clients/letters/sounds', auth.is_clin, clinician.get_sounds);
 //GET Start Session
-router.get('/clients/letters/session/:sound_id', auth.is_clin, client.get_card);
+router.get('/clients/letters/session/:sound_id', auth.is_clin, client.create_form_session, client.get_card);
 //POST Correct, Incorrect, and Kindof. Only to be accessed through ajax
 router.post('/correct', auth.is_clin, client.correct, client.send_card);
 router.post('/incorrect', auth.is_clin, client.incorrect, client.send_card);
