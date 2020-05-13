@@ -133,6 +133,6 @@ exports.send_card = function(req, res, next){
     flashcard.find({'form_id': req.params.sound_id})
         .exec(function(err, cards){
             if(err){return next(err);}
-            res.send({flashcard: cards[Math.floor(Math.random()*cards.length)]});
+            res.send({newImage: cards[Math.floor(Math.random()*cards.length)].link});
         });//If send simply sends the data to the page, then I can have the ajax interpret it? Ask Troy
 }
