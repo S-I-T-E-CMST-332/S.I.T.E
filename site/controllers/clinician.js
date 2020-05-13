@@ -7,6 +7,7 @@ let moment = require('moment');
 let form = require('../models/form');
 let Session = require('../models/session');
 let letter = require('../models/letter');
+let formsession = require('../models/form_session');
 
 exports.get_clients = function(req, res, next){
     Client.find()
@@ -44,17 +45,19 @@ exports.get_delete = function(req, res, next){
         });
 }
 
-exports.get_report = function(req, res){
+exports.get_report = function(req, res, next){
     Session.find({"client_id": req.params.client_id}).exec(function(err, sessions){
         if(err){return next(err);}
-        letter.find({"session_id": req.params.session_id}).exec(function(err, letter){
+        res.render('clients/client\ profile/report/report', {sessions: sessions});
+})
+}
+
+exports.get_details = function(req, res, next){
+    formsession.find({"session_id": req.params.session_id})
+        .exec(function(err, formsessions){
             if(err){return next(err);}
-            form.find({"letter_id": letter[0].letter_id}).exec(function(err, form){
-                if(err){return next(err);}
-                res.render('clients/client\ profile/report/details/details', {letter: letter, form: form, session: sessions});
-            });
+            res.render('clients/client\ profile/report/details/detail', {formsessions: formsessions});
         });
-    });
 }
 
 exports.get_session = function(req, res, next){
