@@ -86,11 +86,13 @@ exports.create_flashcard = [
       }, function(err, results){
         if(results.flashcard.length != 0){
           console.log('Found another flashcard');
-          form.find({'letter_id': 'r'})
-           .exec(function(err, forms){
-              if(err){return next(err);}
-                res.render('clinicians/add-flashcard/add-flashcard', {letters: fields.letter, forms: forms});//Come back and pass an error once you have a sot on pug file
-          });
+          letter.find({'letter_id': 'r'}).exec(function(err, letter){
+            form.find({'letter_id': letter[0].letter_id})
+            .exec(function(err, forms){
+               if(err){return next(err);}
+                 res.render('clinicians/add-flashcard/add-flashcard', {letters: letter, forms: forms});//Come back and pass an error once you have a sot on pug file
+           });
+          })
         }else{//Needs else-if for bad filetypes to prevent error on previous ^^^^
         if(!files.filename.type.includes("image")){
           res.render('clinicians/add-flashcard/add-flashcard', {error: "Unsupported filetype", letter: req.body.letter, forms: req.body.forms});
