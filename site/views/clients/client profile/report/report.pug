@@ -7,10 +7,8 @@ block content
         .row
             .col-md-6.col-md-offset-3
             ul
-                - session_id.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
                 each session in sessions
-                li 
-                    a(href='/clients/'+ client._id + '/reports/' + session.session_id) #{session.day} 
-
-            else
-              li There are no Sessions
+                    li 
+                        a(href='/clients/'+ client._id + '/reports/' + session.session_id) #{session.day} 
+                else
+                    li There are no Sessions
