@@ -6,28 +6,40 @@ let kindOf = document.getElementById("kindOf");
 
 correct.addEventListener('click', function(e){
     e.preventDefault();
-    xhttp.open('POST', '/correct');
     xhttp.onload = function(){
-        console.log(this.responseText);
-        image.src = this.responseText;
+        if(this.status == 200){
+            console.log(this.responseText);
+            image.src = this.responseText;
+        }else{
+            console.log("Loading? (correct)");
+        }
     }
+    xhttp.open('POST', '/correct');
     xhttp.send();
 });
 incorrect.addEventListener('click', function(e){
     e.preventDefault();
-    xhttp.open('POST', '/incorrect');
     xhttp.onload = function(){
-        console.log(this.responseText);
-        image.src = this.responseText;
+        if(this.status == 200){
+            console.log(this.responseText);
+            image.src = this.responseText;
+        }else{
+            console.log("loading? (incorrect)");
+        }
     }
+    xhttp.open('POST', '/incorrect');
     xhttp.send();
 });
 kindOf.addEventListener('click', function(e){
     e.preventDefault();
-    xhttp.open('POST', '/kindof');
     xhttp.onload = function(){
-        console.log(this.responseText);
-        image.src = this.responseText;
+        if(this.status == 200){
+            console.log(this.responseText);
+            image.src = this.responseText;
+        }else{
+            console.log("Loading? (kind of");
+        }
     }
+    xhttp.open('POST', '/kindof');
     xhttp.send();
 });
