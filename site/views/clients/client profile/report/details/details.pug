@@ -1,1 +1,15 @@
-Hey Caroline! This page is going to have the specifics. The page before this should just have a list of sessions. There will probably be more than one session for each client, so the previous page should have all of them, and this page display the scores
+extends ../../../../layout.pug
+
+block content
+    .main.container
+        h1 #{client.name} Session Reports
+        .row
+            .col-md-6.col-md-offset-3
+                h2 Session #{session.day}
+                    div(class="container")  
+                        for formsession in formsessions
+                            p #{formsession.form_id}
+                            p Correct #{formsession.correct}
+                            p Incorrect #{formsession.incorrect}
+                            p Partial #{formsession.kinda}
+                            p Total Opportunities #{formsession.total}
