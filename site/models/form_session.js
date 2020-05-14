@@ -12,4 +12,10 @@ let SessFormSchema = new Schema(
     }
 );
 
+SessFormSchema
+.virtual('total')
+.get(function(){
+    return this.correct + this.incorrect + this.kinda;
+});
+
 module.exports = mongoose.model('sess_forms', SessFormSchema);
