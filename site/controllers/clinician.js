@@ -81,10 +81,6 @@ exports.get_sounds = function(req, res, next){
         });
 }
 
-exports.get_progress_sessions = function(req, res, next){
-    res.render('clients/client\ profile/progress/sessions/sessions');
-}
-
 exports.create_client = [
     check('dob').isLength({min:1}).withMessage("Please enter your client's dob (eg. 08-15-2004"),//Ask how dates are stored in mongo
     check('fname').isLength({min: 1}).withMessage("Please enter your client's first name").isAlphanumeric().withMessage("No special characthers"),
@@ -148,11 +144,11 @@ exports.edit_client = [
 exports.delete_client = function(req, res, next){
     async.parallel({
         client: function(callback){
-            Client.findById(req.body.client_id).exec(callback);
+            Client.findById(req.params.client_id).exec(callback);
         },
     }, function(err, results){
         if(err){return next(err);}
-        Client.findByIdAndDelete(req.body.client_id, function deleteclient(err){
+        Client.findByIdAndDelete(req.params.client_id, function deleteclient(err){
             if(err){return next(err);}
             res.redirect('/clients');
         });
