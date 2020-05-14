@@ -56,7 +56,7 @@ exports.get_details = function(req, res, next){
     formsession.find({"session_id": req.params.session_id})
         .exec(function(err, formsessions){
             if(err){return next(err);}
-            res.render('clients/client\ profile/report/details/detail', {formsessions: formsessions});
+            res.render('clients/client\ profile/report/details/details', {formsessions: formsessions});
         });
 }
 
@@ -69,15 +69,10 @@ exports.get_session = function(req, res, next){
 }
 
 exports.get_sounds = function(req, res, next){
-    req.session.letter_id = 'r';
-    form.find({"letter_id": req.session.letter_id})
+    form.find({"letter_id": 'r'})
         .exec(function(err, forms){
             res.render('clients/client\ profile/session/sounds/sounds', {form: forms});
         });
-}
-
-exports.get_card = function(req, res, next){
-    res.render('clients/client\ profile/session/sounds/flashcard/flashcard');//This is the controller to load a new flashcard
 }
 
 exports.get_progress_sessions = function(req, res, next){
