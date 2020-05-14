@@ -99,11 +99,9 @@ exports.incorrect = function(req, res, next){
             if(err){return next(err);}
             console.log('updates formsession');
         });
-    },function(){
-        console.log('calls next')
-        next()
-    }
-    );
+        console.log('calls next');
+        next();
+    });
 }
 
 exports.kindof = function(req, res, next){
@@ -148,11 +146,9 @@ exports.kindof = function(req, res, next){
             if(err){return next(err);}
             console.log('updates formsession');
         });
-    },function(){
-        console.log('calls next')
-        next()
-    }
-    );
+        console.log('calls next');
+        next();
+    });
 }
 
 exports.start_session = function(req, res, next){
