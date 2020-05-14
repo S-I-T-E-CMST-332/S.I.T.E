@@ -2,19 +2,9 @@ extends ../../../layout
 
 block content
   h1 #{title}
-  if client_SOMETHING.length
-    p #[strong You must delete the following SOMETHINGs before deleting the client:]
-    div(style='margin-left:20px;margin-top:20px')
-      h4 SOMETHINGs
-      dl
-      each SOMETHING in client_SOMETHINGs
-        dt
-          a(href=SOMETHING.url)
-          <!-- What, if anything, would have to be deleted before deleting a client? -->
-
-  else
-    p Are you sure you want to delete the client?
-    form(method='POST' action='')
-      .form-group
-        input#clientid.form-control(type='hidden',name='clientid', required='true', value=client._id )
-      button.btn.btn-primary(type='submit') Delete
+  div(style='margin-left:20px;margin-top:20px')
+  p Are you sure you want to delete the client?
+  form(method='POST' action='')
+    .form-group
+      input#clientid.form-control(type='hidden',name='clientid', required='true', value=client._id )
+    button.btn.btn-primary(type='submit') Delete
