@@ -25,7 +25,7 @@ exports.correct = function(req, res, next){
         let Session = new session({
             _id: results.session[0]._id,
             session_id: req.session.session_id,
-            client_id: req.session.client_id,
+            client_id: results.session[0].client_id,
             correct: results.session[0].correct + 1
         });
         session.findByIdAndUpdate(results.session[0]._id, Session, {new: true}, function(err){
@@ -72,7 +72,7 @@ exports.incorrect = function(req, res, next){
         let Session = new session({
             _id: results.session[0]._id,
             session_id: req.session.session_id,
-            client_id: req.session.client_id,
+            client_id: results.session[0].client_id,
             incorrect: results.session[0].incorrect + 1
         });
         session.findByIdAndUpdate(results.session[0]._id, Session, {new: true}, function(err){
@@ -119,7 +119,7 @@ exports.kindof = function(req, res, next){
         let Session = new session({
             _id: results.session[0]._id,
             session_id: req.session.session_id,
-            client_id: req.session.client_id,
+            client_id: results.session[0].client_id,
             kinda: results.session[0].kinda + 1
         });
         session.findByIdAndUpdate(results.session[0]._id, Session, {new: true}, function(err){
