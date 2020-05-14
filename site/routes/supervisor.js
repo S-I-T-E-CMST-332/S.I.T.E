@@ -27,7 +27,8 @@ router.post('/clinicians/:clinician_id/delete', auth.is_auth, supervisor.delete_
 router.get('/logout', auth.logout);
 //GET Home
 router.get('/home', auth.home);
-//GET progress
-router.get('/clients/:client_id/progress-overview', auth.is_auth, supervisor.get_progress_overview);
+//GET show flashcards
+router.get('/clinicians/view-flashcards', auth.is_auth, supervisor.view_flashcards);
+router.get('/clinicians/view-flashcards/:form_id', auth.is_auth, supervisor.view_flashcard_type);
 
 module.exports = router;
