@@ -56,7 +56,7 @@ exports.get_details = function(req, res, next){
     formsession.find({"session_id": req.params.session_id})
         .exec(function(err, formsessions){
             if(err){return next(err);}
-            res.render('clients/client\ profile/report/details/details', {formsessions: formsessions});
+            res.render('clients/client\ profile/report/details/details', {formsessions: formsessions[0]});
         });
 }
 
