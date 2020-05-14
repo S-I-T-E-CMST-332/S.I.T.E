@@ -240,4 +240,18 @@ exports.delete_clinician = function(req, res, next){
         }
       });
     });
-  }
+}
+
+exports.view_flashcards = function(req, res, next){
+  form.find({"lettter_id": 'r'}).exec(function(err, forms){
+    if(err){return next(err);}
+    res.render("clinicians/view-flashcards/view_flashcards", {forms: forms});
+  });
+}
+
+exports.view_flashcard_type = function(req, res, next){
+  flashcard.find({"form_id": req.params.form_id}).exec(function(err, flashcards){
+    if(err){return next(err);}
+    res.render("clinicians/view-flashcards/flashcard/flashcard", {flashcards: flashcards});
+  });
+}
