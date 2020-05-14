@@ -13,12 +13,6 @@ let SessLetterSchema = new Schema(
 );
 
 SessLetterSchema
-.virtual('name')
-.get(function(){
-  return this.letter_id;
-});
-
-SessLetterSchema
 .virtual('total')
 .get(function(){
   return this.correct + this.incorrect + this.kinda;
