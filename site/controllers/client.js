@@ -203,12 +203,12 @@ exports.create_letter_session = function(req, res, next){
 }
 
 exports.get_card = function(req, res, next){
-    flashcard.find({'form_id': req.params.sound_id})//sound_id is the form like ending ar (sound_id is form id)
+    flashcard.find({'form_id': req.params.sound_id})
         .exec(function(err, cards){
             if(err){return next(err);}
             console.log(req.session);
             res.render('clients/client\ profile/session/sounds/flashcard/flashcard', {flashcard: cards[Math.floor(Math.random()*cards.length)]});
-        });//Should work. As long as the link is defined correctly, we can call flashcard.link
+        });
 }
 
 exports.send_card = function(req, res, next){
@@ -219,10 +219,6 @@ exports.send_card = function(req, res, next){
         });
 }
 
-exports.get_ajax = function(req, res){
-    res.render('ajax');
-}
-
-exports.send_stuff = function(req, res){
-    res.send('/images/flashcards/capture.png');
+exports.good_job = function(req, res, next){
+    res.render('clients/good_job');
 }
