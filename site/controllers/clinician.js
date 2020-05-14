@@ -46,18 +46,24 @@ exports.get_delete = function(req, res, next){
 }
 
 exports.get_report = function(req, res, next){
-    Session.find({"client_id": req.params.client_id}).exec(function(err, sessions){
-        if(err){return next(err);}
-        res.render('clients/client\ profile/report/report', {sessions: sessions});
+    Client.findById(req.params.client_id).exec(function(err, client){
+        Session.find({"client_id": client.client_id}).exec(function(err, sessions){
+            if(err){return next(err);}
+            res.render('clients/client\ profile/report/report', {sessions: sessions, client: client});
+        });
     });
 }
 
 exports.get_details = function(req, res, next){
-    formsession.find({"session_id": req.params.session_id})
-        .exec(function(err, formsessions){
-            if(err){return next(err);}
-            res.render('clients/client\ profile/report/details/details', {formsessions: formsessions});
+    Client.findById(req.params.client_id).exec(function(err, client){
+        Session.find({"client_id": client.client_id}).exec(function(err, sess){
+            formsession.find({"session_id": req.params.session_id})
+            .exec(function(err, formsessions){
+                if(err){return next(err);}
+                res.render('clients/client\ profile/report/details/details', {formsessions: formsessions, client: client, session: sess});
+            });
         });
+    });
 }
 
 exports.get_session = function(req, res, next){
