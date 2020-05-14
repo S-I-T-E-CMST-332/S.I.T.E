@@ -9,9 +9,11 @@ block content
         img(src=flashcard.link, width='500', height='500', id="image")
 
       div(class="col-sm-4")
-          img(src="/images/greencheckmark.svg", id='correct', width='90', height='90')
-          img(src="/images/greyNotEqual.svg", id='kindOf', width='90', height='90')
-          img(src="/images/redX.svg", id='incorrect', width='90', height='90')
+          img(src="/images/greencheckmark.svg", id='correct', width='90', height='90', style="margin:5px")
+          img(src="/images/greyNotEqual.svg", id='kindOf', width='90', height='90', style="margin:5px")
+          img(src="/images/redX.svg", id='incorrect', width='90', height='90', style="margin:5px")
+          button(onclick="window.location.href='/clients/letters/sounds'", type='button', class='btn btn-primary btn-block', style="margin-top:30px") Change Form
+
   script(src="/javascripts/ajax.js")
 	
   div(class='footer')
