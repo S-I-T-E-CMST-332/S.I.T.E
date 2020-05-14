@@ -8,4 +8,10 @@ let LetterSchema = new Schema(
     }
 );
 
+LetterSchema
+.virtual('name')
+.get(function(){
+  return this.letter_id;
+});
+
 module.exports = mongoose.model('letter', LetterSchema);
