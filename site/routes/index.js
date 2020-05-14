@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 //POST home page
 router.post('/', auth.login);
 // GET client list
-router.get('/clients', auth.is_clin, clinician.get_clients);
+router.get('/clients', auth.is_clin, clinician.clear_session, clinician.get_clients);
 //GET Add client
 router.get('/clients/add-client', auth.is_clin, clinician.get_add_client);
 //POST Add client
@@ -39,5 +39,7 @@ router.post('/kindof', auth.is_clin, client.kindof, client.send_card);
 //GET progress (sessions)
 router.get('/clients/:client_id/reports', auth.is_clin, clinician.get_report);
 router.get('/clients/:client_id/reports/:session_id', auth.is_clin, clinician.get_details);
+//GET good job
+router.get('/good-job', auth.is_clin, client.good_job);
 
 module.exports = router;
