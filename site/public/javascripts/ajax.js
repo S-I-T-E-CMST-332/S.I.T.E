@@ -8,8 +8,7 @@ correct.addEventListener('click', function(e){
     e.preventDefault();
     xhttp.open('POST', '/correct');
     xhttp.onload = function(){
-        let newImage = this.responseText;
-        image.src = newImage;
+        image.src = this.responseText;
     }
     xhttp.send();
 });
@@ -17,8 +16,7 @@ incorrect.addEventListener('click', function(e){
     e.preventDefault();
     xhttp.open('POST', '/incorrect');
     xhttp.onload = function(){
-        let newImage = this.responseText;
-        image.src = newImage;
+        image.src = this.responseText;
     }
     xhttp.send();
 });
@@ -26,8 +24,7 @@ kindOf.addEventListener('click', function(e){
     e.preventDefault();
     xhttp.open('POST', '/kindof');
     xhttp.onload = function(){
-        let newImage = this.responseText;
-        image.src = newImage;
+        image.src = this.responseText;
     }
     xhttp.send();
 });
