@@ -159,3 +159,11 @@ exports.delete_client = function(req, res, next){
     }
     );
 }
+
+exports.clear_session = function(req, res, next){
+    req.session.session_id = '';
+    req.session.client_id = '';
+    req.session.letter_id = '';
+    req.session.form_id = '';
+    next();
+}
