@@ -12,7 +12,7 @@ let bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb+srv://leaderfirestar:ksuwildcats67401@ksucsd01-fvoyi.mongodb.net/test?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useFindAndModify: false });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // view engine setup
