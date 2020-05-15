@@ -64,7 +64,6 @@ exports.get_delete_clinician = function(req, res, next){
       Client.find({"user_id": clinician.user_id})
         .exec(function(err, client){
           if(err){return next(err);}
-          console.log(client);
           res.render('clinicians/clinician\ profile/delete/delete', {clients: client, clinician: clinician});
         });
     });
@@ -85,7 +84,6 @@ exports.create_flashcard = [
         }
       }, function(err, results){
         if(results.flashcard.length != 0){
-          console.log('Found another flashcard');
           letter.find({'letter_id': 'r'}).exec(function(err, letter){
             form.find({'letter_id': letter[0].letter_id})
             .exec(function(err, forms){
@@ -96,7 +94,6 @@ exports.create_flashcard = [
         }else if(!files.filename.type.includes("image")){//Needs else-if for bad filetypes to prevent error on previous ^^^^
           res.render('clinicians/add-flashcard/add-flashcard', {error: "Unsupported filetype", letter: req.body.letter, forms: req.body.forms});
         }else{
-          console.log("Outside second conditional");
           let oldpath = files.filename.path;
           let newpath;
           files.filename.type.includes('svg') ? newpath = 'public\\images\\flashcards\\' + fields.name + '.svg': newpath = 'public\\images\\flashcards\\' + fields.name + '.' + files.filename.type.split('/').pop();
@@ -109,7 +106,6 @@ exports.create_flashcard = [
               link: '\\' + splitpath[1] + '\\' + splitpath[2] + '\\' + splitpath[3]
             });
             card.save(function(err){
-              console.log("Second redirect")
               res.redirect('/clinicians');
             });
           });
@@ -141,7 +137,6 @@ exports.create_user = [
         if(err){return next(err);}
         if(user.length !== 0){
           res.render('clinicians/add-clinician/add_clinician', {error: "Username is taken", supervisors: req.body.supervisors});
-          console.log(user);
         }
       });
     if (!errors.isEmpty()){
