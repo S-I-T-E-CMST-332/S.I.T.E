@@ -1,1 +1,12 @@
-This page will have all of the flashcards of a particular type
+extends ../../../layout
+
+block content
+
+    if flashcards.length==0
+        h1 There are no images
+    else
+        h1 Flashcards for #{flashcards[0].form_id}
+        div(class="container")
+        for flashcard in flashcards
+            img(src=flashcard.link, height='200', width='200')
+            p #{flashcard.name}    

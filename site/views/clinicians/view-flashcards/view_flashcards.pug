@@ -1,1 +1,37 @@
-This page needs a table with the 21 forms of r
+extends ../../Layout
+
+block content
+
+  h3 Choose a sound to view images
+
+  div(class="container")         
+    table(class="table table-bordered")
+      tbody
+        tr
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[0].form_id+"'", type='button') /air/ Initial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[1].form_id+"'", type='button') /air/ Medial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[2].form_id+"'", type='button') /air/ Final
+        tr
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[3].form_id+"'", type='button') /ar/ Initial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[4].form_id+"'", type='button') /ar/ Medial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[5].form_id+"'", type='button') /ar/ Final
+        tr
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[6].form_id+"'", type='button') /ear/ Initial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[7].form_id+"'", type='button') /ear/ Medial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[8].form_id+"'", type='button') /ear/ Final
+        tr
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[9].form_id+"'", type='button') /ire/ Initial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[10].form_id+"'", type='button') /ire/ Medial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[11].form_id+"'", type='button') /ire/ Final
+        tr
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[12].form_id+"'", type='button') /or/ Initial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[13].form_id+"'", type='button') /or/ Medial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[14].form_id+"'", type='button') /or/ Final
+        tr
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[15].form_id+"'", type='button') /er/ Initial
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[16].form_id+"'", type='button') /er/ Medial stressed
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[17].form_id+"'", type='button') /er/ Medial unstressed
+        tr
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[18].form_id+"'", type='button') /er/ Final
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[19].form_id+"'", type='button') /rl/
+          td(onclick="window.location.href='/clinicians/view-flashcards/"+form[20].form_id+"'", type='button') Prevocalic /r/

@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 let supervisor = require('../controllers/supervisor');
 let auth = require('../controllers/auth');
-
+//GET show flashcards
+router.get('/clinicians/view-flashcards', auth.is_auth, supervisor.view_flashcards);
+router.get('/clinicians/view-flashcards/:form_id', auth.is_auth, supervisor.view_flashcard_type);
 //GET clinician list
 router.get('/clinicians', auth.is_auth, supervisor.get_clinicians);
 //GET add user
@@ -27,8 +29,5 @@ router.post('/clinicians/:clinician_id/delete', auth.is_auth, supervisor.delete_
 router.get('/logout', auth.logout);
 //GET Home
 router.get('/home', auth.home);
-//GET show flashcards
-router.get('/clinicians/view-flashcards', auth.is_auth, supervisor.view_flashcards);
-router.get('/clinicians/view-flashcards/:form_id', auth.is_auth, supervisor.view_flashcard_type);
 
 module.exports = router;
