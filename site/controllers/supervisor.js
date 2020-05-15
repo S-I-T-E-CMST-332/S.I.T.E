@@ -245,7 +245,6 @@ exports.delete_clinician = function(req, res, next){
 exports.view_flashcards = function(req, res, next){
   form.find({"letter_id": "r"}).exec(function(err, forms){
     if(err){return next(err);}
-    console.log(forms)
     res.render("clinicians/view-flashcards/view_flashcards", {form: forms});
   });
 }
