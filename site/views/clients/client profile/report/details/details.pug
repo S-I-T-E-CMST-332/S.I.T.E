@@ -2,14 +2,13 @@ extends ../../../../layout.pug
 
 block content
     .main.container
-        h1 #{client.name} Session Reports
+        h1 #{client.name} Session Report #{session[0].day}
         .row
             .col-md-6.col-md-offset-3
-                h2 Session #{session.day}
-                    div(class="container")  
-                        for formsession in formsessions
-                            p #{formsession.form_id}
-                            p Correct #{formsession.correct}
-                            p Incorrect #{formsession.incorrect}
-                            p Partial #{formsession.kinda}
-                            p Total Opportunities #{formsession.total}
+                div(class="container")  
+                    for formsession in formsessions
+                        h4 Form: #{formsession.form_id}
+                        h4 Correct: #{formsession.correct}
+                        h4 Incorrect: #{formsession.incorrect}
+                        h4 Partial: #{formsession.kinda}
+                        h4 Total Opportunities: #{formsession.total}
