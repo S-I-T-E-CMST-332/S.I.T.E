@@ -1,12 +1,17 @@
 extends ../../../layout
 
 block content
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                if flashcards.length==0
+                    h1 There are no images
+                    button(onclick="window.location.href='/clinicians/view-flashcards'", type='button', class='btn btn-primary btn-block') View Flashcards
 
-    if flashcards.length==0
-        h1 There are no images
-    else
-        h1 Flashcards for #{flashcards[0].form_id}
-        div(class="container")
-        for flashcard in flashcards
-            img(src=flashcard.link, height='200', width='200')
-            p #{flashcard.name}    
+                else
+                    h1 Flashcards for #{flashcards[0].form_id}
+                    button(onclick="window.location.href='/clinicians/view-flashcards'", type='button', class='btn btn-primary btn-block') View Flashcards
+                    div(class="container")
+                    for flashcard in flashcards
+                        img(src=flashcard.link, height='200', width='200')
+                        p #{flashcard.name}
