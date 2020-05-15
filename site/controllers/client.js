@@ -30,7 +30,6 @@ exports.correct = function(req, res, next){
         });
         session.findByIdAndUpdate(results.session[0]._id, Session, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates session');
         });
         let Letter = new lettersession({
             _id: results.lettersession[0]._id,
@@ -40,7 +39,6 @@ exports.correct = function(req, res, next){
         });
         lettersession.findByIdAndUpdate(results.lettersession[0]._id, Letter, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates letter');
         });
         let Form = new formsession({
             _id: results.formsession[0]._id,
@@ -50,9 +48,7 @@ exports.correct = function(req, res, next){
         });
         formsession.findByIdAndUpdate(results.formsession[0]._id, Form, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates formsession');
         });
-        console.log('calls next');
         next();
     });
 }
@@ -77,7 +73,6 @@ exports.incorrect = function(req, res, next){
         });
         session.findByIdAndUpdate(results.session[0]._id, Session, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates session');
         });
         let Letter = new lettersession({
             _id: results.lettersession[0]._id,
@@ -87,7 +82,6 @@ exports.incorrect = function(req, res, next){
         });
         lettersession.findByIdAndUpdate(results.lettersession[0]._id, Letter, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates letter');
         });
         let Form = new formsession({
             _id: results.formsession[0]._id,
@@ -97,9 +91,7 @@ exports.incorrect = function(req, res, next){
         });
         formsession.findByIdAndUpdate(results.formsession[0]._id, Form, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates formsession');
         });
-        console.log('calls next');
         next();
     });
 }
@@ -124,7 +116,6 @@ exports.kindof = function(req, res, next){
         });
         session.findByIdAndUpdate(results.session[0]._id, Session, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates session');
         });
         let Letter = new lettersession({
             _id: results.lettersession[0]._id,
@@ -134,7 +125,6 @@ exports.kindof = function(req, res, next){
         });
         lettersession.findByIdAndUpdate(results.lettersession[0]._id, Letter, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates letter');
         });
         let Form = new formsession({
             _id: results.formsession[0]._id,
@@ -144,9 +134,7 @@ exports.kindof = function(req, res, next){
         });
         formsession.findByIdAndUpdate(results.formsession[0]._id, Form, {new: true}, function(err){
             if(err){return next(err);}
-            console.log('updates formsession');
         });
-        console.log('calls next');
         next();
     });
 }
@@ -173,40 +161,51 @@ exports.start_session = function(req, res, next){
 }
 
 exports.create_form_session = function(req, res, next){
-    let FormSession = new formsession({
-        form_id: req.params.sound_id,
-        session_id: req.session.session_id,
-        correct: 0,
-        incorrect: 0,
-        kinda: 0
+    formsession.find({"session_id": req.session.session_id}).exec(function(err, formsess){
+        if(formsess.length != 0){
+            next();
+        }else{
+            let FormSession = new formsession({
+                form_id: req.params.sound_id,
+                session_id: req.session.session_id,
+                correct: 0,
+                incorrect: 0,
+                kinda: 0
+            });
+            FormSession.save(function(err){
+                if(err){return next(err);}
+            });
+            req.session.letter_id = 'r';
+            req.session.form_id = req.params.sound_id;
+            next();
+        }
     });
-    FormSession.save(function(err){
-        if(err){return next(err);}
-    });
-    req.session.letter_id = 'r';
-    req.session.form_id = req.params.sound_id;
-    next();
 }
 
 exports.create_letter_session = function(req, res, next){
-    let LetterSession = new lettersession({
-        letter_id: req.session.letter_id,
-        session_id: req.session.session_id,
-        correct: 0,
-        incorrect: 0,
-        kinda: 0
+    lettersession.find({"session_id": req.session.session_id}).exec(function(err, letter){
+        if(letter.length != 0){
+            next();
+        }else{
+            let LetterSession = new lettersession({
+                letter_id: req.session.letter_id,
+                session_id: req.session.session_id,
+                correct: 0,
+                incorrect: 0,
+                kinda: 0
+            });
+            LetterSession.save(function(err){
+                if(err){return next(err);}
+            });
+            next();
+        }
     });
-    LetterSession.save(function(err){
-        if(err){return next(err);}
-    });
-    next();
 }
 
 exports.get_card = function(req, res, next){
     flashcard.find({'form_id': req.params.sound_id})
         .exec(function(err, cards){
             if(err){return next(err);}
-            console.log(req.session);
             res.render('clients/client\ profile/session/sounds/flashcard/flashcard', {flashcard: cards[Math.floor(Math.random()*cards.length)]});
         });
 }
